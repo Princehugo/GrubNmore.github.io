@@ -1,0 +1,3594 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GrubNmore - Lagos Cloud Kitchen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+      * {
+        font-family: 'Poppins', sans-serif;
+      }
+      
+      h1, h2, h3, h4 {
+        font-family: 'Playfair Display', serif;
+      }
+
+      :root {
+        --army-green: #4b5320;
+        --army-green-light: #6b7430;
+        --army-green-dark: #2d3213;
+        --warm-gold: #d4af37;
+        --cream: #fffaf0;
+        --spicy-red: #dc2626;
+        --fresh-green: #10b981;
+        --hot-orange: #f97316;
+      }
+
+      body {
+        background-color: var(--cream);
+      }
+
+      /* Modern Header */
+      .main-header {
+        background: linear-gradient(135deg, var(--army-green) 0%, var(--army-green-dark) 100%);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-content {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      /* Hero Slider */
+      .hero-slider {
+        height: 85vh;
+        min-height: 600px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(75, 83, 32, 0.8) 0%, rgba(45, 50, 19, 0.7) 100%);
+        z-index: 1;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+      }
+
+      .hero-title {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 800;
+        line-height: 1.1;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .hero-subtitle {
+        font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+        opacity: 0.95;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Tag Banners */
+      .tag-banner {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.875rem;
+        margin: 0 0.5rem 0.5rem 0;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .tag-fresh {
+        background: var(--fresh-green);
+        color: white;
+      }
+
+      .tag-hot {
+        background: var(--hot-orange);
+        color: white;
+      }
+
+      .tag-spicy {
+        background: var(--spicy-red);
+        color: white;
+      }
+
+      .tag-homemade {
+        background: var(--warm-gold);
+        color: var(--army-green-dark);
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+
+      /* Category Cards */
+      .category-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .category-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        border-color: var(--army-green);
+      }
+
+      .category-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 2rem;
+        background: linear-gradient(135deg, var(--army-green) 0%, var(--army-green-light) 100%);
+        color: white;
+      }
+
+      /* Menu Items */
+      .menu-item-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        position: relative;
+      }
+
+      .menu-item-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        border-color: var(--army-green);
+      }
+
+      .menu-item-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        padding: 0.25rem 1rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        z-index: 2;
+      }
+
+      .menu-item-image {
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .menu-item-card:hover .menu-item-image {
+        transform: scale(1.05);
+      }
+
+      .price-tag {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--army-green);
+      }
+
+      /* Cart */
+      .cart-sidebar {
+        background: white;
+        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+        transform: translateX(100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .cart-sidebar.open {
+        transform: translateX(0);
+      }
+
+      .cart-item {
+        padding: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        transition: all 0.3s ease;
+      }
+
+      .cart-item:hover {
+        background: #f9fafb;
+      }
+
+      /* Buttons */
+      .btn-primary {
+        background: linear-gradient(135deg, var(--army-green) 0%, var(--army-green-light) 100%);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(75, 83, 32, 0.2);
+        border: 2px solid transparent;
+        cursor: pointer;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(75, 83, 32, 0.3);
+        border-color: var(--army-green-dark);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--army-green);
+        border: 2px solid var(--army-green);
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .btn-secondary:hover {
+        background: var(--army-green);
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      /* Floating Elements */
+      .floating-cart {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--army-green) 0%, var(--army-green-light) 100%);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 20px rgba(75, 83, 32, 0.3);
+        z-index: 100;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .floating-cart:hover {
+        transform: scale(1.1) rotate(10deg);
+        box-shadow: 0 8px 30px rgba(75, 83, 32, 0.4);
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: var(--spicy-red);
+        color: white;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: bold;
+      }
+
+      .floating-whatsapp {
+        position: fixed;
+        bottom: 7rem;
+        right: 2rem;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #25d366;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+        z-index: 100;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .floating-whatsapp:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+      }
+
+      /* Testimonials */
+      .testimonial-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .testimonial-card:hover {
+        border-color: var(--army-green);
+        transform: translateY(-5px);
+      }
+
+      .testimonial-card::before {
+        content: '"';
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        font-size: 4rem;
+        color: var(--army-green);
+        opacity: 0.1;
+        font-family: 'Playfair Display', serif;
+      }
+
+      /* Form Styles */
+      .form-input {
+        width: 100%;
+        padding: 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        background: white;
+      }
+
+      .form-input:focus {
+        outline: none;
+        border-color: var(--army-green);
+        box-shadow: 0 0 0 3px rgba(75, 83, 32, 0.1);
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--army-green);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--army-green-dark);
+      }
+
+      /* Mobile Menu */
+      .mobile-menu {
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background: white;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .mobile-menu.open {
+        transform: translateX(0);
+      }
+
+      /* Animation */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 0.6s ease-out forwards;
+      }
+
+      /* Admin Panel */
+      .admin-panel {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+
+      .admin-section {
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      /* Blog Cards */
+      .blog-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      .blog-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Fast Selling Highlight */
+      .fast-selling-badge {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        background: var(--spicy-red);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        z-index: 2;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+      }
+
+      /* Special Order Form */
+      .special-order-form {
+        background: linear-gradient(135deg, var(--army-green) 0%, var(--army-green-dark) 100%);
+        border-radius: 20px;
+        overflow: hidden;
+      }
+
+      /* Section Display Fix */
+      section[id] {
+        display: none;
+      }
+      
+      #home {
+        display: block;
+      }
+
+      /* Mobile Menu Z-index Fix */
+      .mobile-menu {
+        z-index: 9999;
+      }
+
+      /* Notification */
+      .notification {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        padding: 1rem 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        z-index: 10000;
+        transform: translateY(-100px);
+        transition: transform 0.3s ease;
+      }
+
+      /* Logo Management Styles */
+      .logo-preview {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #e5e7eb;
+        overflow: hidden;
+        margin: 0 auto;
+        background-color: #ffffff;
+      }
+      
+      .logo-preview img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+      
+      .logo-preview-text {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--army-green);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero-slider {
+          height: 70vh;
+          min-height: 500px;
+        }
+        
+        .hero-title {
+          font-size: clamp(2rem, 4vw, 3rem);
+        }
+        
+        .floating-cart, .floating-whatsapp {
+          bottom: 1rem;
+          right: 1rem;
+        }
+        
+        .floating-whatsapp {
+          bottom: 6rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="text-gray-800">
+    <!-- Header -->
+    <header class="main-header sticky top-0 z-50">
+      <div class="header-content">
+        <div class="flex items-center justify-between h-20">
+          <!-- Logo -->
+          <div class="flex items-center space-x-3">
+            <div id="headerLogo" class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+              <span class="text-2xl font-bold" style="color: var(--army-green);">G</span>
+            </div>
+            <div>
+              <h1 class="text-2xl font-bold text-white" id="siteTitle">GrubNmore</h1>
+              <p class="text-xs text-white/80" id="siteTaglineDisplay">Lagos Cloud Kitchen</p>
+            </div>
+          </div>
+
+          <!-- Desktop Navigation -->
+          <nav class="hidden lg:flex items-center space-x-8">
+            <a href="#home" onclick="showSection('home')" class="text-white/90 hover:text-white font-medium transition-colors">Home</a>
+            <a href="#menu" onclick="showSection('menu')" class="text-white/90 hover:text-white font-medium transition-colors">Menu</a>
+            <a href="#fast-selling" onclick="showSection('fast-selling')" class="text-white/90 hover:text-white font-medium transition-colors">Popular</a>
+            <a href="#blog" onclick="showSection('blog')" class="text-white/90 hover:text-white font-medium transition-colors">Blog</a>
+            <a href="#special-order" onclick="showSection('special-order')" class="text-white/90 hover:text-white font-medium transition-colors">Special Order</a>
+            <button onclick="showSection('order')" class="btn-primary">
+              Order Now
+            </button>
+          </nav>
+
+          <!-- Mobile Menu Button -->
+          <button id="mobileMenuBtn" class="lg:hidden text-white text-2xl">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed inset-y-0 left-0 w-64 z-50">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-8">
+          <div class="flex items-center space-x-3">
+            <div id="mobileLogo" class="w-10 h-10 rounded-full flex items-center justify-center" style="background-color: var(--army-green);">
+              <span class="text-xl font-bold text-white">G</span>
+            </div>
+            <span class="text-xl font-bold" style="color: var(--army-green);">GrubNmore</span>
+          </div>
+          <button onclick="closeMobileMenu()" class="text-gray-500 hover:text-gray-700">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+        <nav class="space-y-4">
+          <a href="#home" onclick="showSection('home'); closeMobileMenu()" class="block py-3 px-4 rounded-lg hover:bg-gray-100 font-medium" style="color: var(--army-green);">Home</a>
+          <a href="#menu" onclick="showSection('menu'); closeMobileMenu()" class="block py-3 px-4 rounded-lg hover:bg-gray-100 font-medium" style="color: var(--army-green);">Menu</a>
+          <a href="#fast-selling" onclick="showSection('fast-selling'); closeMobileMenu()" class="block py-3 px-4 rounded-lg hover:bg-gray-100 font-medium" style="color: var(--army-green);">Popular</a>
+          <a href="#blog" onclick="showSection('blog'); closeMobileMenu()" class="block py-3 px-4 rounded-lg hover:bg-gray-100 font-medium" style="color: var(--army-green);">Blog</a>
+          <a href="#special-order" onclick="showSection('special-order'); closeMobileMenu()" class="block py-3 px-4 rounded-lg hover:bg-gray-100 font-medium" style="color: var(--army-green);">Special Order</a>
+          <button onclick="showSection('order'); closeMobileMenu()" class="w-full btn-primary mt-4">
+            Order Now
+          </button>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Home Section -->
+    <section id="home" class="min-h-screen">
+      <!-- Hero Slider -->
+      <div class="hero-slider relative">
+        <div class="absolute inset-0">
+          <div class="absolute inset-0 hero-overlay"></div>
+          <!-- Slide 1 -->
+          <div id="slide1" class="absolute inset-0 transition-opacity duration-1000 opacity-100">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" 
+                 alt="Delicious Jollof Rice" class="w-full h-full object-cover">
+          </div>
+          <!-- Slide 2 -->
+          <div id="slide2" class="absolute inset-0 transition-opacity duration-1000 opacity-0">
+            <img src="https://images.unsplash.com/photo-1563379091339-03246963d9d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" 
+                 alt="Fresh Breakfast" class="w-full h-full object-cover">
+          </div>
+          <!-- Slide 3 -->
+          <div id="slide3" class="absolute inset-0 transition-opacity duration-1000 opacity-0">
+            <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" 
+                 alt="Spicy Shawarma" class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 h-full flex items-center">
+          <div class="header-content">
+            <div class="hero-content text-white animate-fade-in">
+              <!-- Tag Banners -->
+              <div class="flex flex-wrap mb-6" id="tagBanners">
+                <span class="tag-banner tag-fresh">
+                  <i class="fas fa-leaf mr-2"></i>Fresh Ingredients
+                </span>
+                <span class="tag-banner tag-hot">
+                  <i class="fas fa-fire mr-2"></i>Hot & Ready
+                </span>
+                <span class="tag-banner tag-spicy">
+                  <i class="fas fa-pepper-hot mr-2"></i>Perfectly Spiced
+                </span>
+                <span class="tag-banner tag-homemade">
+                  <i class="fas fa-home mr-2"></i>Lagos Cloud Kitchen
+                </span>
+              </div>
+
+              <h1 class="hero-title mb-6" id="heroTitle">
+                Lagos' Favorite<br>
+                <span style="color: var(--warm-gold);" id="heroSubtitle">Cloud Kitchen</span>
+              </h1>
+              
+              <p class="hero-subtitle mb-8 max-w-2xl" id="heroDescription">
+                Experience the best of Lagos street food, delivered hot and fresh to your doorstep. From authentic local dishes to international favorites, we bring Lagos to you.
+              </p>
+              
+              <div class="flex flex-wrap gap-4">
+                <button onclick="showSection('menu')" class="btn-primary">
+                  <i class="fas fa-utensils mr-2"></i>Explore Our Menu
+                </button>
+                <button onclick="openWhatsAppOrder()" class="btn-secondary">
+                  <i class="fab fa-whatsapp mr-2"></i>Order on WhatsApp
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide Indicators -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+          <button onclick="goToSlide(0)" class="w-3 h-3 rounded-full bg-white slide-indicator active"></button>
+          <button onclick="goToSlide(1)" class="w-3 h-3 rounded-full bg-white/50 slide-indicator"></button>
+          <button onclick="goToSlide(2)" class="w-3 h-3 rounded-full bg-white/50 slide-indicator"></button>
+        </div>
+      </div>
+
+      <!-- Category Showcase -->
+      <div class="py-20" style="background-color: var(--cream);">
+        <div class="header-content">
+          <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold mb-4" style="color: var(--army-green);" id="categoriesTitle">Our Menu Categories</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto" id="categoriesDescription">Explore our diverse menu crafted to satisfy every craving</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="categoriesContainer">
+            <!-- Categories will be loaded by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fast Selling Section -->
+    <section id="fast-selling" class="py-20 bg-white">
+      <div class="header-content">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold mb-4" style="color: var(--army-green);" id="fastSellingTitle">Lagos' Favorites</h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto" id="fastSellingDescription">Our most popular items that Lagos can't get enough of</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="fastSellingGrid">
+          <!-- Fast selling items loaded by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-20" style="background: linear-gradient(to bottom, var(--cream) 0%, white 100%);">
+      <div class="header-content">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold mb-4" style="color: var(--army-green);" id="menuTitle">Our Complete Menu</h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto" id="menuDescription">Freshly prepared daily with love and attention to detail</p>
+        </div>
+
+        <!-- Menu Filter -->
+        <div class="flex flex-wrap justify-center gap-2 mb-8" id="menuFilters">
+          <button onclick="filterMenu('all')" class="px-6 py-2 rounded-full font-medium transition-all" 
+                  style="background-color: var(--army-green); color: white;">All Items</button>
+          <!-- Filter buttons loaded by JavaScript -->
+        </div>
+
+        <!-- Menu Items Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="menuGrid">
+          <!-- Menu items will be loaded here by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-20 bg-white">
+      <div class="header-content">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold mb-4" style="color: var(--army-green);" id="blogTitle">GrubNmore Food Blog</h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto" id="blogDescription">Tips, recipes, and food stories from Lagos' favorite cloud kitchen</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="blogGrid">
+          <!-- Blog posts loaded by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Special Order Section -->
+    <section id="special-order" class="py-20" style="background: linear-gradient(135deg, var(--cream) 0%, white 100%);">
+      <div class="header-content">
+        <div class="max-w-4xl mx-auto">
+          <div class="special-order-form p-8 md:p-12">
+            <div class="text-center mb-8">
+              <h2 class="text-4xl font-bold mb-4 text-white" id="specialOrderTitle">Special Orders</h2>
+              <p class="text-white/90 text-lg" id="specialOrderDescription">Have a special request? Custom orders? Bulk orders for events? We've got you covered!</p>
+            </div>
+
+            <form id="specialOrderForm" class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-white mb-2">Full Name *</label>
+                  <input type="text" required class="w-full px-4 py-3 rounded-lg" placeholder="Your name">
+                </div>
+                <div>
+                  <label class="block text-white mb-2">Phone Number *</label>
+                  <input type="tel" required class="w-full px-4 py-3 rounded-lg" placeholder="08012345678">
+                </div>
+                <div>
+                  <label class="block text-white mb-2">Email</label>
+                  <input type="email" class="w-full px-4 py-3 rounded-lg" placeholder="you@example.com">
+                </div>
+                <div>
+                  <label class="block text-white mb-2">Order Type *</label>
+                  <select required class="w-full px-4 py-3 rounded-lg">
+                    <option value="">Select type</option>
+                    <option value="custom">Custom Dish</option>
+                    <option value="bulk">Bulk Order (Event)</option>
+                    <option value="catering">Catering Service</option>
+                    <option value="dietary">Special Dietary Needs</option>
+                  </select>
+                </div>
+                <div class="md:col-span-2">
+                  <label class="block text-white mb-2">Order Details *</label>
+                  <textarea required rows="4" class="w-full px-4 py-3 rounded-lg" placeholder="Describe your special order, number of people, dietary restrictions, etc."></textarea>
+                </div>
+                <div>
+                  <label class="block text-white mb-2">Preferred Date</label>
+                  <input type="date" class="w-full px-4 py-3 rounded-lg">
+                </div>
+                <div>
+                  <label class="block text-white mb-2">Delivery Area</label>
+                  <select class="w-full px-4 py-3 rounded-lg" id="specialOrderLGA">
+                    <option value="">Select LGA</option>
+                    <!-- LGA options will be populated by JavaScript -->
+                  </select>
+                </div>
+              </div>
+
+              <div class="bg-white/10 p-4 rounded-lg">
+                <p class="text-white/80 text-sm" id="specialOrderNote">
+                  <i class="fas fa-info-circle mr-2"></i>
+                  Our team will contact you within 2 hours to discuss your special order and provide a quote.
+                </p>
+              </div>
+
+              <button type="submit" class="w-full bg-white text-gray-900 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                <i class="fas fa-paper-plane mr-2"></i>Submit Special Order Request
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Order/Contact Section -->
+    <section id="order" class="py-20" style="background-color: var(--cream);">
+      <div class="header-content">
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold mb-4" style="color: var(--army-green);" id="orderTitle">Place Your Order</h2>
+            <p class="text-lg text-gray-600" id="orderDescription">Complete your order and we'll deliver it fresh to your doorstep</p>
+          </div>
+
+          <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <!-- Order Summary -->
+            <div class="p-8 border-b" style="border-color: #e5e7eb;">
+              <h3 class="text-xl font-bold mb-4 flex items-center" style="color: var(--army-green);">
+                <i class="fas fa-shopping-cart mr-3"></i>
+                Order Summary
+              </h3>
+              <div id="orderItems" class="space-y-4 mb-4">
+                <!-- Cart items will be displayed here -->
+                <div class="text-center py-8 text-gray-500">
+                  <i class="fas fa-shopping-bag text-4xl mb-4"></i>
+                  <p>Your cart is empty</p>
+                  <p class="text-sm">Add items from our menu</p>
+                </div>
+              </div>
+              <div class="flex justify-between items-center pt-4 border-t" style="border-color: #e5e7eb;">
+                <span class="text-lg font-bold">Total:</span>
+                <span id="orderTotal" class="text-2xl font-bold" style="color: var(--army-green);">₦0</span>
+              </div>
+            </div>
+
+            <!-- Order Form -->
+            <div class="p-8">
+              <h3 class="text-xl font-bold mb-6" style="color: var(--army-green);">Delivery Information</h3>
+              <form id="orderForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                    <input type="text" id="customerName" required 
+                           class="form-input" placeholder="John Doe">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
+                    <input type="tel" id="customerPhone" required 
+                           class="form-input" placeholder="08012345678">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                    <input type="email" id="customerEmail" 
+                           class="form-input" placeholder="john@example.com">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">LGA (Local Government Area) *</label>
+                    <select id="customerLGA" required class="form-input">
+                      <option value="">Select LGA</option>
+                      <!-- LGA options will be populated by JavaScript -->
+                    </select>
+                  </div>
+                  <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Delivery Address *</label>
+                    <textarea id="deliveryAddress" required rows="3" 
+                              class="form-input" placeholder="House number, street name, nearest landmark"></textarea>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Preferred Time</label>
+                    <select id="deliveryTime" class="form-input">
+                      <option value="ASAP">As soon as possible</option>
+                      <option value="Lunch">12:00 PM - 2:00 PM</option>
+                      <option value="Dinner">6:00 PM - 8:00 PM</option>
+                      <option value="Specific">Specific time (add in notes)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Special Instructions</label>
+                    <input type="text" id="specialInstructions" 
+                           class="form-input" placeholder="Spice level, allergies, etc.">
+                  </div>
+                </div>
+
+                <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                  <div class="flex items-start">
+                    <i class="fas fa-info-circle text-yellow-500 mt-1 mr-3"></i>
+                    <div>
+                      <p class="text-sm text-yellow-800" id="orderNote">
+                        <strong>Note:</strong> After submitting, you'll be redirected to WhatsApp to complete your order. 
+                        Please keep your phone nearby for confirmation.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <button type="button" onclick="submitOrder()" 
+                        class="w-full btn-primary text-lg py-4">
+                  <i class="fab fa-whatsapp mr-2"></i>
+                  Complete Order on WhatsApp
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 relative" style="background-color: var(--army-green-dark); color: white;">
+      <div class="header-content">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+          <div>
+            <div class="flex items-center space-x-3 mb-4">
+              <div id="footerLogo" class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                <span class="text-xl font-bold" style="color: var(--army-green);">G</span>
+              </div>
+              <h3 class="text-xl font-bold" id="footerTitle">GrubNmore</h3>
+            </div>
+            <p class="text-white/80 text-sm" id="footerDescription">
+              Lagos' Premier Cloud Kitchen - Bringing authentic flavors to your doorstep.
+            </p>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-bold mb-4">Contact Info</h4>
+            <div class="space-y-2 text-white/80" id="contactInfo">
+              <div class="flex items-center">
+                <i class="fas fa-phone mr-3"></i>
+                <span>+234 812 345 6789</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fab fa-whatsapp mr-3"></i>
+                <span>+234 812 345 6789</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-envelope mr-3"></i>
+                <span>orders@grubnmore.com</span>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-map-marker-alt mr-3"></i>
+                <span>Lagos, Nigeria</span>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-bold mb-4">Delivery Hours</h4>
+            <div class="space-y-2 text-white/80" id="deliveryHours">
+              <div>Breakfast: 6AM - 11AM</div>
+              <div>Lunch: 11AM - 3PM</div>
+              <div>Dinner: 5PM - 9PM</div>
+              <div>Weekends: 8AM - 10PM</div>
+            </div>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-bold mb-4">Follow Us</h4>
+            <div class="flex space-x-4" id="socialLinks">
+              <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                <i class="fab fa-tiktok"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="pt-8 border-t border-white/20 text-center">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <p class="text-white/60 text-sm mb-4 md:mb-0" id="copyright">
+              &copy; 2024 GrubNmore Lagos Cloud Kitchen. All rights reserved.
+            </p>
+            
+            <!-- Hidden Admin Access -->
+            <div class="relative group">
+              <button onclick="showAdminLogin()" 
+                      class="text-xs text-white/40 hover:text-white/60 transition-colors">
+                <i class="fas fa-cog mr-1"></i> Site Management
+              </button>
+              
+              <div class="absolute bottom-full right-0 mb-2 w-64 bg-white rounded-lg shadow-xl p-4 hidden group-hover:block z-50">
+                <div class="text-sm text-gray-600 mb-2">Admin Access Required</div>
+                <button onclick="showAdminLogin()" 
+                        class="w-full text-sm py-2 rounded-lg font-medium transition-colors"
+                        style="background-color: var(--army-green); color: white;">
+                  <i class="fas fa-lock mr-2"></i> Access Admin Panel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar" class="cart-sidebar fixed top-0 right-0 h-full w-full lg:w-96 z-50">
+      <div class="h-full flex flex-col">
+        <div class="p-6 border-b" style="border-color: #e5e7eb; background: white;">
+          <div class="flex justify-between items-center">
+            <h3 class="text-xl font-bold" style="color: var(--army-green);">Your Order</h3>
+            <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">
+              <i class="fas fa-times text-xl"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div id="cartItems" class="flex-1 overflow-y-auto p-6" style="background: white;">
+          <!-- Cart items will be loaded here -->
+        </div>
+        
+        <div class="p-6 border-t" style="border-color: #e5e7eb; background: white;">
+          <div class="space-y-4">
+            <div class="flex justify-between">
+              <span class="font-medium">Subtotal</span>
+              <span id="cartSubtotal" class="font-bold" style="color: var(--army-green);">₦0</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="font-medium">Delivery Fee</span>
+              <span class="font-bold" style="color: var(--army-green);">₦500</span>
+            </div>
+            <div class="flex justify-between text-lg font-bold pt-4 border-t" style="border-color: #e5e7eb;">
+              <span>Total</span>
+              <span id="cartTotal" style="color: var(--army-green);">₦0</span>
+            </div>
+            
+            <!-- WhatsApp Checkout Form in Cart -->
+            <div id="whatsappCheckoutForm" class="hidden">
+              <div class="space-y-4 mt-4 p-4 border rounded-lg" style="border-color: #e5e7eb;">
+                <h4 class="font-bold" style="color: var(--army-green);">Delivery Details</h4>
+                <input type="text" id="cartCustomerName" class="form-input text-sm" placeholder="Your Name">
+                <input type="tel" id="cartCustomerPhone" class="form-input text-sm" placeholder="Phone Number">
+                <select id="cartCustomerLGA" class="form-input text-sm">
+                  <option value="">Select LGA</option>
+                  <!-- LGA options populated by JavaScript -->
+                </select>
+                <textarea id="cartDeliveryAddress" class="form-input text-sm" rows="2" placeholder="Delivery Address"></textarea>
+              </div>
+            </div>
+            
+            <button onclick="toggleWhatsAppCheckout()" class="w-full btn-primary mt-4">
+              <i class="fab fa-whatsapp mr-2"></i>
+              Checkout via WhatsApp
+            </button>
+            <button onclick="continueShopping()" class="w-full btn-secondary">
+              Continue Shopping
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div id="cartOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" onclick="toggleCart()"></div>
+
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+      <div class="admin-panel w-full max-w-md">
+        <div class="p-8">
+          <div class="flex justify-between items-center mb-6">
+            <h3 class="text-2xl font-bold" style="color: var(--army-green);">Admin Login</h3>
+            <button onclick="closeAdminLogin()" class="text-gray-500 hover:text-gray-700">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          
+          <form id="adminLoginForm" class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Username</label>
+              <input type="text" id="adminUsername" required 
+                     class="form-input" placeholder="Enter username">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+              <input type="password" id="adminPassword" required 
+                     class="form-input" placeholder="Enter password">
+            </div>
+            
+            <button type="submit" class="w-full btn-primary">
+              <i class="fas fa-sign-in-alt mr-2"></i> Login to Admin Panel
+            </button>
+            
+            <div class="text-center text-sm text-gray-500">
+              <p>Default Credentials:</p>
+              <p>Username: <strong>GrubNLagosCloud1</strong></p>
+              <p>Password: <strong>440012A</strong></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div id="adminPanelModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+      <div class="admin-panel w-full max-w-6xl">
+        <div class="p-8">
+          <div class="flex justify-between items-center mb-8">
+            <h3 class="text-2xl font-bold" style="color: var(--army-green);">Site Data Manager</h3>
+            <button onclick="closeAdminPanel()" class="text-gray-500 hover:text-gray-700">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Product Management -->
+            <div class="admin-section">
+              <h4 class="text-lg font-semibold mb-4" style="color: var(--army-green);">Product Management</h4>
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Product Name</label>
+                  <input type="text" id="productName" class="form-input" placeholder="Enter product name">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Price (₦)</label>
+                  <input type="number" id="productPrice" class="form-input" placeholder="Enter price">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                  <select id="productCategory" class="form-input">
+                    <option value="breakfast">Breakfast</option>
+                    <option value="rice">Rice Meals</option>
+                    <option value="pasta">Pasta & Noodles</option>
+                    <option value="protein">Protein Options</option>
+                    <option value="fast-selling">Fast Sellers</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Badge Type</label>
+                  <select id="productBadge" class="form-input">
+                    <option value="Hot">Hot</option>
+                    <option value="Fresh">Fresh</option>
+                    <option value="Spicy">Spicy</option>
+                    <option value="Homemade">Homemade</option>
+                    <option value="Juicy">Juicy</option>
+                    <option value="Crispy">Crispy</option>
+                    <option value="Creamy">Creamy</option>
+                    <option value="Simple">Simple</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                  <textarea id="productDescription" class="form-input" rows="3" placeholder="Enter product description"></textarea>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Image URL</label>
+                  <input type="url" id="productImage" class="form-input" placeholder="Enter image URL">
+                </div>
+                <div class="flex space-x-2">
+                  <button onclick="addProduct()" class="flex-1 btn-primary">
+                    <i class="fas fa-plus mr-2"></i> Add Product
+                  </button>
+                  <button onclick="updateProduct()" class="flex-1 btn-secondary">
+                    <i class="fas fa-edit mr-2"></i> Update Product
+                  </button>
+                </div>
+                <div class="text-sm text-gray-500">
+                  <p><strong>Note:</strong> To edit a product, first select it from the Price Management section below.</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Price Management -->
+            <div class="admin-section">
+              <h4 class="text-lg font-semibold mb-4" style="color: var(--army-green);">Price Management</h4>
+              <div class="space-y-4">
+                <div id="priceList" class="max-h-60 overflow-y-auto space-y-2">
+                  <!-- Products with prices will be listed here -->
+                </div>
+                <div class="flex space-x-2">
+                  <input type="text" id="searchProduct" class="form-input flex-1" placeholder="Search product...">
+                  <button onclick="searchProduct()" class="btn-primary px-4">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Categories Management -->
+            <div class="admin-section">
+              <h4 class="text-lg font-semibold mb-4" style="color: var(--army-green);">Categories Management</h4>
+              <div class="space-y-4">
+                <div id="categoryList" class="max-h-40 overflow-y-auto space-y-2">
+                  <!-- Categories will be listed here -->
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Category Name</label>
+                    <input type="text" id="categoryName" class="form-input" placeholder="Category name">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
+                    <input type="text" id="categoryIcon" class="form-input" placeholder="fas fa-icon">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                  <textarea id="categoryDescription" class="form-input" rows="2" placeholder="Category description"></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Timing</label>
+                    <input type="text" id="categoryTiming" class="form-input" placeholder="6AM - 11AM">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Color</label>
+                    <input type="color" id="categoryColor" class="form-input w-full h-10" value="#4b5320">
+                  </div>
+                </div>
+                <div class="flex space-x-2">
+                  <button onclick="addCategory()" class="flex-1 btn-primary">
+                    <i class="fas fa-plus mr-2"></i> Add Category
+                  </button>
+                  <button onclick="updateCategory()" class="flex-1 btn-secondary">
+                    <i class="fas fa-edit mr-2"></i> Update Category
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Logo Management Section -->
+            <div class="admin-section">
+              <h4 class="text-lg font-semibold mb-4" style="color: var(--army-green);">Logo Management</h4>
+              <div class="space-y-4">
+                <!-- Logo Preview -->
+                <div class="mb-4">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Current Logo</label>
+                  <div id="logoPreview" class="logo-preview">
+                    <!-- Logo preview will be loaded here -->
+                  </div>
+                </div>
+                
+                <!-- Logo Type Selection -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Logo Type</label>
+                  <div class="grid grid-cols-2 gap-2 mb-4">
+                    <button type="button" onclick="selectLogoType('text')" 
+                            id="textLogoBtn" class="px-4 py-2 rounded-lg border text-sm font-medium transition-colors"
+                            style="background-color: var(--army-green); color: white; border-color: var(--army-green);">
+                      <i class="fas fa-text-height mr-2"></i> Text Logo
+                    </button>
+                    <button type="button" onclick="selectLogoType('image')" 
+                            id="imageLogoBtn" class="px-4 py-2 rounded-lg border text-sm font-medium transition-colors"
+                            style="border-color: var(--army-green); color: var(--army-green);">
+                      <i class="fas fa-image mr-2"></i> Image Logo
+                    </button>
+                  </div>
+                </div>
+                
+                <!-- Text Logo Options -->
+                <div id="textLogoOptions" class="space-y-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Logo Text</label>
+                    <input type="text" id="logoText" class="form-input" placeholder="Enter logo text (e.g., G)">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Logo Color</label>
+                    <input type="color" id="logoColor" class="form-input w-full h-10" value="#4b5320">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Background Color</label>
+                    <input type="color" id="logoBgColor" class="form-input w-full h-10" value="#ffffff">
+                  </div>
+                </div>
+                
+                <!-- Image Logo Options -->
+                <div id="imageLogoOptions" class="space-y-4 hidden">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Logo Image URL</label>
+                    <input type="url" id="logoImageUrl" class="form-input" placeholder="https://example.com/logo.png">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Upload Logo Image</label>
+                    <div class="mt-1 flex items-center">
+                      <input type="file" id="logoUpload" accept="image/*" class="hidden">
+                      <button type="button" onclick="document.getElementById('logoUpload').click()" 
+                              class="flex-1 btn-secondary py-2 text-sm">
+                        <i class="fas fa-upload mr-2"></i> Choose File
+                      </button>
+                      <span id="logoFileName" class="ml-3 text-sm text-gray-500 truncate">No file chosen</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Recommended: 200x200px PNG with transparent background</p>
+                  </div>
+                </div>
+                
+                <button onclick="updateLogo()" class="w-full btn-primary">
+                  <i class="fas fa-save mr-2"></i> Update Logo
+                </button>
+                
+                <div class="text-sm text-gray-500 bg-gray-50 p-3 rounded-lg">
+                  <p><strong>Note:</strong> The logo appears in the header and footer of the website. Changes will be visible immediately after saving.</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Site Branding -->
+            <div class="admin-section">
+              <h4 class="text-lg font-semibold mb-4" style="color: var(--army-green);">Site Branding</h4>
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Site Title</label>
+                  <input type="text" id="siteTitleInput" class="form-input" placeholder="Enter site title">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Tagline</label>
+                  <input type="text" id="siteTagline" class="form-input" placeholder="Enter site tagline">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Hero Title</label>
+                  <input type="text" id="heroTitleInput" class="form-input" placeholder="Enter hero title">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Hero Subtitle</label>
+                  <input type="text" id="heroSubtitleInput" class="form-input" placeholder="Enter hero subtitle">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Hero Description</label>
+                  <textarea id="heroDescriptionInput" class="form-input" rows="2" placeholder="Enter hero description"></textarea>
+                </div>
+                <button onclick="updateBranding()" class="w-full btn-primary">
+                  <i class="fas fa-save mr-2"></i> Update Branding
+                </button>
+              </div>
+            </div>
+            
+            <!-- Section Titles -->
+            <div class="admin-section">
+              <h4 class="text-lg font-semibold mb-4" style="color: var(--army-green);">Section Titles</h4>
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Categories Title</label>
+                  <input type="text" id="categoriesTitleInput" class="form-input" placeholder="Enter categories title">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Categories Description</label>
+                  <textarea id="categoriesDescriptionInput" class="form-input" rows="2" placeholder="Enter categories description"></textarea>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Fast Selling Title</label>
+                  <input type="text" id="fastSellingTitleInput" class="form-input" placeholder="Enter fast selling title">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Fast Selling Description</label>
+                  <textarea id="fastSellingDescriptionInput" class="form-input" rows="2" placeholder="Enter fast selling description"></textarea>
+                </div>
+                <button onclick="updateSectionTitles()" class="w-full btn-primary">
+                  <i class="fas fa-save mr-2"></i> Update Section Titles
+                </button>
+              </div>
+            </div>
+            
+            <!-- Tag Management -->
+            <div class="admin-section">
+              <h4 class="text-lg font-semibold mb-4" style="color: var(--army-green);">Tag Management</h4>
+              <div class="space-y-4">
+                <div id="tagList" class="max-h-40 overflow-y-auto space-y-2">
+                  <!-- Tags will be listed here -->
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Tag Text</label>
+                    <input type="text" id="tagText" class="form-input" placeholder="Tag text">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Icon Class</label>
+                    <input type="text" id="tagIcon" class="form-input" placeholder="fas fa-icon">
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Color</label>
+                    <select id="tagColor" class="form-input">
+                      <option value="tag-fresh">Fresh Green</option>
+                      <option value="tag-hot">Hot Orange</option>
+                      <option value="tag-spicy">Spicy Red</option>
+                      <option value="tag-homemade">Homemade Gold</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Order</label>
+                    <input type="number" id="tagOrder" class="form-input" placeholder="Order" min="1" max="10">
+                  </div>
+                </div>
+                <div class="flex space-x-2">
+                  <button onclick="addTag()" class="flex-1 btn-primary">
+                    <i class="fas fa-plus mr-2"></i> Add Tag
+                  </button>
+                  <button onclick="updateTag()" class="flex-1 btn-secondary">
+                    <i class="fas fa-edit mr-2"></i> Update Tag
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Contact & Footer -->
+            <div class="admin-section">
+              <h4 class="text-lg font-semibold mb-4" style="color: var(--army-green);">Contact & Footer</h4>
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Footer Title</label>
+                  <input type="text" id="footerTitleInput" class="form-input" placeholder="Enter footer title">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Footer Description</label>
+                  <textarea id="footerDescriptionInput" class="form-input" rows="2" placeholder="Enter footer description"></textarea>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Phone Numbers</label>
+                  <textarea id="contactPhone" class="form-input" rows="2" placeholder="Enter phone numbers (one per line)"></textarea>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                  <input type="text" id="contactEmail" class="form-input" placeholder="Enter email">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                  <input type="text" id="contactAddress" class="form-input" placeholder="Enter address">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Delivery Hours</label>
+                  <textarea id="deliveryHoursInput" class="form-input" rows="3" placeholder="Enter delivery hours (one per line)"></textarea>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Copyright Text</label>
+                  <input type="text" id="copyrightText" class="form-input" placeholder="Enter copyright text">
+                </div>
+                <button onclick="updateContactFooter()" class="w-full btn-primary">
+                  <i class="fas fa-save mr-2"></i> Update Contact & Footer
+                </button>
+              </div>
+            </div>
+            
+            <!-- Image Management -->
+            <div class="admin-section md:col-span-2">
+              <h4 class="text-lg font-semibold mb-4" style="color: var(--army-green);">Image Management</h4>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Hero Image 1 URL</label>
+                  <input type="url" id="heroImage1" class="form-input" placeholder="Enter image URL">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Hero Image 2 URL</label>
+                  <input type="url" id="heroImage2" class="form-input" placeholder="Enter image URL">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Hero Image 3 URL</label>
+                  <input type="url" id="heroImage3" class="form-input" placeholder="Enter image URL">
+                </div>
+              </div>
+              <button onclick="updateImages()" class="w-full btn-primary mt-4">
+                <i class="fas fa-images mr-2"></i> Update Images
+              </button>
+            </div>
+            
+            <!-- Blog Management -->
+            <div class="admin-section md:col-span-2">
+              <h4 class="text-lg font-semibold mb-4" style="color: var(--army-green);">Blog Management</h4>
+              <div class="space-y-4">
+                <div id="blogList" class="max-h-40 overflow-y-auto space-y-2">
+                  <!-- Blog posts will be listed here -->
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Blog Post Title</label>
+                  <input type="text" id="blogTitleInput" class="form-input" placeholder="Enter blog title">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Blog Content</label>
+                  <textarea id="blogContent" class="form-input" rows="4" placeholder="Enter blog content"></textarea>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Blog Image URL</label>
+                  <input type="url" id="blogImage" class="form-input" placeholder="Enter image URL">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                    <input type="text" id="blogCategory" class="form-input" placeholder="Enter category">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+                    <input type="text" id="blogDate" class="form-input" placeholder="Enter date">
+                  </div>
+                </div>
+                <div class="flex space-x-2">
+                  <button onclick="addBlogPost()" class="flex-1 btn-primary">
+                    <i class="fas fa-plus mr-2"></i> Add Blog Post
+                  </button>
+                  <button onclick="updateBlogPost()" class="flex-1 btn-secondary">
+                    <i class="fas fa-edit mr-2"></i> Update Blog Post
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-8 flex justify-between">
+            <button onclick="exportSiteData()" class="btn-secondary">
+              <i class="fas fa-download mr-2"></i> Export Data
+            </button>
+            <button onclick="importSiteData()" class="btn-secondary">
+              <i class="fas fa-upload mr-2"></i> Import Data
+            </button>
+            <button onclick="resetToDefaults()" class="btn-secondary" style="background-color: var(--spicy-red); color: white;">
+              <i class="fas fa-undo mr-2"></i> Reset to Defaults
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Elements -->
+    <div class="floating-cart" onclick="toggleCart()">
+      <i class="fas fa-shopping-bag text-xl"></i>
+      <span id="cartCount" class="cart-count">0</span>
+    </div>
+    
+    <div class="floating-whatsapp" onclick="openWhatsAppOrder()">
+      <i class="fab fa-whatsapp text-2xl"></i>
+    </div>
+
+    <script>
+      // Application State - ADDED LOGO SETTINGS
+      const state = {
+        cart: [],
+        currentSlide: 0,
+        selectedProductId: null,
+        selectedCategoryId: null,
+        selectedTagId: null,
+        selectedBlogId: null,
+        // ADDED LOGO SETTINGS
+        logoSettings: {
+          type: 'text', // 'text' or 'image'
+          text: 'G',
+          textColor: '#4b5320',
+          backgroundColor: '#ffffff',
+          imageUrl: ''
+        },
+        slides: [
+          { id: 'slide1', active: true },
+          { id: 'slide2', active: false },
+          { id: 'slide3', active: false }
+        ],
+        categories: [
+          {
+            id: 1,
+            name: "Breakfast",
+            icon: "fas fa-egg",
+            description: "Start your day right with our hearty breakfast options",
+            timing: "6AM - 11AM",
+            color: "#4b5320"
+          },
+          {
+            id: 2,
+            name: "Rice Meals",
+            icon: "fas fa-bowl-rice",
+            description: "Delicious rice dishes for lunch and dinner",
+            timing: "All Day",
+            color: "#4b5320"
+          },
+          {
+            id: 3,
+            name: "Pasta & Noodles",
+            icon: "fas fa-pasta",
+            description: "Comfort food that hits the spot every time",
+            timing: "All Day",
+            color: "#4b5320"
+          },
+          {
+            id: 4,
+            name: "Fast Sellers",
+            icon: "fas fa-fire",
+            description: "Our most popular items loved by Lagos",
+            timing: "🔥 Hot Items",
+            color: "#dc2626"
+          }
+        ],
+        tags: [
+          {
+            id: 1,
+            text: "Fresh Ingredients",
+            icon: "fas fa-leaf",
+            color: "tag-fresh",
+            order: 1
+          },
+          {
+            id: 2,
+            text: "Hot & Ready",
+            icon: "fas fa-fire",
+            color: "tag-hot",
+            order: 2
+          },
+          {
+            id: 3,
+            text: "Perfectly Spiced",
+            icon: "fas fa-pepper-hot",
+            color: "tag-spicy",
+            order: 3
+          },
+          {
+            id: 4,
+            text: "Lagos Cloud Kitchen",
+            icon: "fas fa-home",
+            color: "tag-homemade",
+            order: 4
+          }
+        ],
+        menuItems: [
+          // Fast Sellers
+          { id: 31, name: "Chicken Shawarma", price: 3500, category: "fast-selling", badge: "Spicy", 
+            description: "Authentic Middle Eastern shawarma with spiced chicken, fresh veggies, and garlic sauce", 
+            image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 32, name: "Beef Burrito", price: 4200, category: "fast-selling", badge: "Hot", 
+            description: "Loaded beef burrito with rice, beans, cheese, salsa, and sour cream", 
+            image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 33, name: "Club Sandwich", price: 3800, category: "fast-selling", badge: "Fresh", 
+            description: "Triple-decker sandwich with turkey, bacon, lettuce, tomato, and mayo", 
+            image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+
+          // Breakfast Items
+          { id: 1, name: "English Breakfast", price: 3500, category: "breakfast", badge: "Hot", 
+            description: "Sausage, eggs, toast, bacon - A classic breakfast", 
+            image: "https://images.unsplash.com/photo-1558584724-0e4d32ca55a4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 2, name: "Fried Plantain & Egg Sauce", price: 2800, category: "breakfast", badge: "Fresh",
+            description: "Fresh fried plantain with creamy egg sauce", 
+            image: "https://images.unsplash.com/photo-1551884170-09fb70a3a2ed?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 3, name: "Fried Yam & Egg Sauce", price: 2700, category: "breakfast", badge: "Hot",
+            description: "Crispy fried yam with homemade egg sauce", 
+            image: "https://images.unsplash.com/photo-1563379091339-03246963d9d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 4, name: "Boiled Plantain & Egg Sauce", price: 2600, category: "breakfast", badge: "Fresh",
+            description: "Soft boiled plantain with rich egg sauce", 
+            image: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 5, name: "Boiled Yam & Egg Sauce", price: 2500, category: "breakfast", badge: "Fresh",
+            description: "Tender boiled yam with flavorful egg sauce", 
+            image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 6, name: "Ewa Agonyin with Yam", price: 3200, category: "breakfast", badge: "Spicy",
+            description: "Traditional beans with soft yam", 
+            image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 7, name: "Ewa Agonyin with Plantain", price: 3300, category: "breakfast", badge: "Spicy",
+            description: "Traditional beans with fried plantain", 
+            image: "https://images.unsplash.com/photo-1563379091339-03246963d9d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 8, name: "Pap, Milk & Akara", price: 2200, category: "breakfast", badge: "Homemade",
+            description: "Hot pap with milk and fresh akara", 
+            image: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 9, name: "Egg Omelette Sandwich", price: 2500, category: "breakfast", badge: "Fresh",
+            description: "Fluffy omelette with cheese in fresh bread", 
+            image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 10, name: "Chicken Cheese Sandwich", price: 3200, category: "breakfast", badge: "Hot",
+            description: "Grilled chicken with melted cheese sandwich", 
+            image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 11, name: "Avocado Egg Sandwich", price: 2900, category: "breakfast", badge: "Fresh",
+            description: "Fresh avocado and egg in whole wheat bread", 
+            image: "https://images.unsplash.com/photo-1481070555726-e2fe8357725c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+
+          // Rice Meals
+          { id: 12, name: "Jollof Rice", price: 3200, category: "rice", badge: "Spicy",
+            description: "Traditional Nigerian jollof rice", 
+            image: "https://images.unsplash.com/photo-1585937421612-70ca003675ed?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 13, name: "Fried Rice", price: 3400, category: "rice", badge: "Fresh",
+            description: "Mixed vegetable fried rice", 
+            image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 14, name: "Native/Ofada Rice", price: 3800, category: "rice", badge: "Spicy",
+            description: "Traditional ofada rice with special sauce", 
+            image: "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 15, name: "Coconut Rice", price: 3600, category: "rice", badge: "Fresh",
+            description: "Aromatic coconut-infused rice", 
+            image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 16, name: "White Rice & Stew", price: 3000, category: "rice", badge: "Homemade",
+            description: "Plain rice with Nigerian stew", 
+            image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 17, name: "Stir Fry Rice", price: 3500, category: "rice", badge: "Hot",
+            description: "Asian-style stir fried rice", 
+            image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+
+          // Pasta & Noodles
+          { id: 18, name: "Spaghetti Jollof", price: 3200, category: "pasta", badge: "Spicy",
+            description: "Jollof-style spaghetti", 
+            image: "https://images.unsplash.com/photo-1598866594230-a7c12756260f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 19, name: "Alfredo Pasta", price: 3800, category: "pasta", badge: "Creamy",
+            description: "Creamy alfredo pasta with herbs", 
+            image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 20, name: "Stir Fry Spaghetti", price: 3400, category: "pasta", badge: "Hot",
+            description: "Stir fried spaghetti with vegetables", 
+            image: "https://images.unsplash.com/photo-1608897013039-887f21d8c804?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 21, name: "Noodles (Full)", price: 2700, category: "pasta", badge: "Hot",
+            description: "Noodles with egg, chicken, sausage", 
+            image: "https://images.unsplash.com/photo-1612927601601-6638404737ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 22, name: "Noodles with Egg Only", price: 2200, category: "pasta", badge: "Simple",
+            description: "Noodles with scrambled egg", 
+            image: "https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 23, name: "Noodles Only", price: 1800, category: "pasta", badge: "Simple",
+            description: "Plain noodles with seasoning", 
+            image: "https://images.unsplash.com/photo-1563379091339-03246963d9d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+
+          // Protein Options
+          { id: 24, name: "Grilled Chicken", price: 2500, category: "protein", badge: "Juicy",
+            description: "Juicy grilled chicken breast", 
+            image: "https://images.unsplash.com/photo-1532550907401-a500c9a57435?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+          
+          { id: 25, name: "Fried Chicken", price: 2800, category: "protein", badge: "Crispy",
+            description: "Crispy fried chicken pieces", 
+            image: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" }
+        ],
+        blogPosts: [
+          {
+            id: 1,
+            title: "The Secret to Perfect Jollof Rice",
+            content: "Discover the traditional techniques that make our jollof rice the best in Lagos...",
+            image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+            date: "March 15, 2024",
+            category: "Recipe"
+          },
+          {
+            id: 2,
+            title: "Shawarma: From Street Food to Gourmet",
+            content: "How we elevated the classic shawarma to become Lagos' favorite fast food...",
+            image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+            date: "March 10, 2024",
+            category: "Guide"
+          },
+          {
+            id: 3,
+            title: "Why Breakfast Matters in Lagos",
+            content: "Start your day right with these breakfast essentials for busy Lagosians...",
+            image: "https://images.unsplash.com/photo-1563379091339-03246963d9d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+            date: "March 5, 2024",
+            category: "Tips"
+          }
+        ],
+        siteData: {
+          siteTitle: "GrubNmore",
+          tagline: "Lagos Cloud Kitchen",
+          heroTitle: "Lagos' Favorite Cloud Kitchen",
+          heroSubtitle: "Cloud Kitchen",
+          heroDescription: "Experience the best of Lagos street food, delivered hot and fresh to your doorstep. From authentic local dishes to international favorites, we bring Lagos to you.",
+          categoriesTitle: "Our Menu Categories",
+          categoriesDescription: "Explore our diverse menu crafted to satisfy every craving",
+          fastSellingTitle: "Lagos' Favorites",
+          fastSellingDescription: "Our most popular items that Lagos can't get enough of",
+          menuTitle: "Our Complete Menu",
+          menuDescription: "Freshly prepared daily with love and attention to detail",
+          blogTitle: "GrubNmore Food Blog",
+          blogDescription: "Tips, recipes, and food stories from Lagos' favorite cloud kitchen",
+          specialOrderTitle: "Special Orders",
+          specialOrderDescription: "Have a special request? Custom orders? Bulk orders for events? We've got you covered!",
+          specialOrderNote: "Our team will contact you within 2 hours to discuss your special order and provide a quote.",
+          orderTitle: "Place Your Order",
+          orderDescription: "Complete your order and we'll deliver it fresh to your doorstep",
+          orderNote: "Note: After submitting, you'll be redirected to WhatsApp to complete your order. Please keep your phone nearby for confirmation.",
+          footerTitle: "GrubNmore",
+          footerDescription: "Lagos' Premier Cloud Kitchen - Bringing authentic flavors to your doorstep.",
+          contactPhone: "+234 812 345 6789\n+234 812 345 6789",
+          contactEmail: "orders@grubnmore.com",
+          contactAddress: "Lagos, Nigeria",
+          deliveryHours: "Breakfast: 6AM - 11AM\nLunch: 11AM - 3PM\nDinner: 5PM - 9PM\nWeekends: 8AM - 10PM",
+          copyright: "&copy; 2024 GrubNmore Lagos Cloud Kitchen. All rights reserved.",
+          heroImages: [
+            "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+            "https://images.unsplash.com/photo-1563379091339-03246963d9d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+            "https://images.unsplash.com/photo-1551183053-bf91a1d81141?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+          ],
+          whatsappNumber: "2348123456789"
+        },
+        lagosLGAs: [
+          "Agege", "Ajeromi-Ifelodun", "Alimosho", "Amuwo-Odofin", "Apapa", "Badagry", 
+          "Epe", "Eti-Osa", "Ibeju-Lekki", "Ifako-Ijaiye", "Ikeja", "Ikorodu", 
+          "Kosofe", "Lagos Island", "Lagos Mainland", "Mushin", "Ojo", "Oshodi-Isolo", 
+          "Shomolu", "Surulere", "Victoria Island", "Yaba"
+        ]
+      };
+
+      // Initialize Application
+      document.addEventListener('DOMContentLoaded', function() {
+        loadSiteContent();
+        loadLGASelects();
+        startSlideshow();
+        loadCartFromStorage();
+        updateCartCount();
+        
+        // ADDED: Load logo settings
+        loadLogoFromStorage();
+        updateLogoDisplay();
+        
+        // Setup form submissions
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          handleAdminLogin();
+        });
+        
+        document.getElementById('specialOrderForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          handleSpecialOrder();
+        });
+        
+        // Initialize with home section
+        if (!window.location.hash) {
+          showSection('home');
+        } else {
+          const hash = window.location.hash.substring(1);
+          showSection(hash || 'home');
+        }
+        
+        // Fix mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+          document.getElementById('mobileMenu').classList.add('open');
+        });
+        
+        // Close mobile menu when clicking overlay
+        document.getElementById('mobileMenu').addEventListener('click', function(e) {
+          if (e.target === this) {
+            closeMobileMenu();
+          }
+        });
+      });
+
+      // Load site content
+      function loadSiteContent() {
+        // Load from localStorage if available
+        const savedSiteData = localStorage.getItem('grubnmore_site_data');
+        if (savedSiteData) {
+          const data = JSON.parse(savedSiteData);
+          if (data.siteData) state.siteData = { ...state.siteData, ...data.siteData };
+          if (data.categories) state.categories = data.categories;
+          if (data.tags) state.tags = data.tags;
+          if (data.menuItems) state.menuItems = data.menuItems;
+          if (data.blogPosts) state.blogPosts = data.blogPosts;
+          // ADDED: Load logo settings
+          if (data.logoSettings) {
+            state.logoSettings = data.logoSettings;
+          }
+        }
+
+        // Update site title and tagline
+        document.getElementById('siteTitle').textContent = state.siteData.siteTitle;
+        document.getElementById('siteTaglineDisplay').textContent = state.siteData.tagline;
+        
+        // Update hero section
+        document.getElementById('heroTitle').innerHTML = `Lagos' Favorite<br><span style="color: var(--warm-gold);">${state.siteData.heroSubtitle}</span>`;
+        document.getElementById('heroDescription').textContent = state.siteData.heroDescription;
+        
+        // Update section titles
+        document.getElementById('categoriesTitle').textContent = state.siteData.categoriesTitle;
+        document.getElementById('categoriesDescription').textContent = state.siteData.categoriesDescription;
+        document.getElementById('fastSellingTitle').textContent = state.siteData.fastSellingTitle;
+        document.getElementById('fastSellingDescription').textContent = state.siteData.fastSellingDescription;
+        document.getElementById('menuTitle').textContent = state.siteData.menuTitle;
+        document.getElementById('menuDescription').textContent = state.siteData.menuDescription;
+        document.getElementById('blogTitle').textContent = state.siteData.blogTitle;
+        document.getElementById('blogDescription').textContent = state.siteData.blogDescription;
+        document.getElementById('specialOrderTitle').textContent = state.siteData.specialOrderTitle;
+        document.getElementById('specialOrderDescription').textContent = state.siteData.specialOrderDescription;
+        document.getElementById('specialOrderNote').innerHTML = `<i class="fas fa-info-circle mr-2"></i>${state.siteData.specialOrderNote}`;
+        document.getElementById('orderTitle').textContent = state.siteData.orderTitle;
+        document.getElementById('orderDescription').textContent = state.siteData.orderDescription;
+        document.getElementById('orderNote').innerHTML = `<strong>Note:</strong> ${state.siteData.orderNote}`;
+        
+        // Update footer
+        document.getElementById('footerTitle').textContent = state.siteData.footerTitle;
+        document.getElementById('footerDescription').textContent = state.siteData.footerDescription;
+        document.getElementById('copyright').innerHTML = state.siteData.copyright;
+        
+        // Update contact info
+        const contactInfo = document.getElementById('contactInfo');
+        const phones = state.siteData.contactPhone.split('\n');
+        contactInfo.innerHTML = `
+          <div class="flex items-center">
+            <i class="fas fa-phone mr-3"></i>
+            <span>${phones[0] || '+234 812 345 6789'}</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fab fa-whatsapp mr-3"></i>
+            <span>${phones[1] || phones[0] || '+234 812 345 6789'}</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-envelope mr-3"></i>
+            <span>${state.siteData.contactEmail}</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-map-marker-alt mr-3"></i>
+            <span>${state.siteData.contactAddress}</span>
+          </div>
+        `;
+        
+        // Update delivery hours
+        const deliveryHoursDiv = document.getElementById('deliveryHours');
+        const hours = state.siteData.deliveryHours.split('\n');
+        deliveryHoursDiv.innerHTML = hours.map(hour => `<div>${hour}</div>`).join('');
+        
+        // Update hero images
+        const slide1 = document.querySelector('#slide1 img');
+        const slide2 = document.querySelector('#slide2 img');
+        const slide3 = document.querySelector('#slide3 img');
+        
+        if (slide1 && state.siteData.heroImages[0]) slide1.src = state.siteData.heroImages[0];
+        if (slide2 && state.siteData.heroImages[1]) slide2.src = state.siteData.heroImages[1];
+        if (slide3 && state.siteData.heroImages[2]) slide3.src = state.siteData.heroImages[2];
+        
+        // Load categories
+        loadCategories();
+        
+        // Load tags
+        loadTags();
+        
+        // Load menu items
+        loadMenuItems();
+        
+        // Load blog posts
+        loadBlogPosts();
+        
+        // Load fast selling items
+        loadFastSellingItems();
+        
+        // ADDED: Update logo display
+        updateLogoDisplay();
+      }
+
+      // Load Lagos LGAs into all select elements
+      function loadLGASelects() {
+        const lgaSelects = document.querySelectorAll('select[id*="LGA"], select[id*="lga"], #specialOrderLGA');
+        lgaSelects.forEach(select => {
+          // Clear existing options except first
+          while (select.options.length > 1) {
+            select.remove(1);
+          }
+          
+          state.lagosLGAs.forEach(lga => {
+            const option = document.createElement('option');
+            option.value = lga;
+            option.textContent = lga;
+            select.appendChild(option);
+          });
+        });
+      }
+
+      // Save site data - UPDATED TO INCLUDE LOGO SETTINGS
+      function saveSiteData() {
+        const data = {
+          siteData: state.siteData,
+          categories: state.categories,
+          tags: state.tags,
+          menuItems: state.menuItems,
+          blogPosts: state.blogPosts,
+          logoSettings: state.logoSettings // ADDED
+        };
+        localStorage.setItem('grubnmore_site_data', JSON.stringify(data));
+      }
+
+      // ADDED: Load logo from storage
+      function loadLogoFromStorage() {
+        const savedLogoSettings = localStorage.getItem('grubnmore_logo_settings');
+        if (savedLogoSettings) {
+          state.logoSettings = JSON.parse(savedLogoSettings);
+        }
+      }
+
+      // ADDED: Save logo settings
+      function saveLogoSettings() {
+        localStorage.setItem('grubnmore_logo_settings', JSON.stringify(state.logoSettings));
+        // Also save to main site data for export
+        saveSiteData();
+      }
+
+      // ADDED: Update logo display on the site
+      function updateLogoDisplay() {
+        const logoElements = [
+          document.getElementById('headerLogo'),
+          document.getElementById('mobileLogo'),
+          document.getElementById('footerLogo')
+        ];
+        
+        logoElements.forEach(logoElement => {
+          if (!logoElement) return;
+          
+          // Clear existing content
+          logoElement.innerHTML = '';
+          
+          if (state.logoSettings.type === 'text') {
+            // Create text logo
+            const textElement = document.createElement('span');
+            textElement.className = 'text-2xl font-bold';
+            textElement.style.color = state.logoSettings.textColor;
+            textElement.textContent = state.logoSettings.text;
+            logoElement.appendChild(textElement);
+            
+            // Set background color
+            logoElement.style.backgroundColor = state.logoSettings.backgroundColor;
+          } else if (state.logoSettings.type === 'image' && state.logoSettings.imageUrl) {
+            // Create image logo
+            const imgElement = document.createElement('img');
+            imgElement.src = state.logoSettings.imageUrl;
+            imgElement.alt = 'GrubNmore Logo';
+            imgElement.className = 'w-full h-full object-contain';
+            imgElement.onerror = function() {
+              // Fallback to text if image fails to load
+              this.style.display = 'none';
+              const fallbackText = document.createElement('span');
+              fallbackText.className = 'text-2xl font-bold';
+              fallbackText.style.color = state.logoSettings.textColor || '#4b5320';
+              fallbackText.textContent = state.logoSettings.text || 'G';
+              logoElement.appendChild(fallbackText);
+            };
+            logoElement.appendChild(imgElement);
+            logoElement.style.backgroundColor = 'transparent';
+          }
+        });
+        
+        // Update logo preview in admin if admin panel is open
+        updateLogoPreview();
+      }
+
+      // ADDED: Update logo preview in admin panel
+      function updateLogoPreview() {
+        const logoPreview = document.getElementById('logoPreview');
+        if (!logoPreview) return;
+        
+        logoPreview.innerHTML = '';
+        
+        if (state.logoSettings.type === 'text') {
+          const textElement = document.createElement('span');
+          textElement.className = 'logo-preview-text';
+          textElement.style.color = state.logoSettings.textColor;
+          textElement.textContent = state.logoSettings.text;
+          logoPreview.style.backgroundColor = state.logoSettings.backgroundColor;
+          logoPreview.appendChild(textElement);
+        } else if (state.logoSettings.type === 'image' && state.logoSettings.imageUrl) {
+          const imgElement = document.createElement('img');
+          imgElement.src = state.logoSettings.imageUrl;
+          imgElement.alt = 'Logo Preview';
+          imgElement.className = 'w-full h-full object-contain';
+          imgElement.onerror = function() {
+            // Show error placeholder
+            this.style.display = 'none';
+            const errorText = document.createElement('span');
+            errorText.className = 'logo-preview-text';
+            errorText.textContent = '!';
+            errorText.style.color = '#dc2626';
+            logoPreview.appendChild(errorText);
+          };
+          logoPreview.style.backgroundColor = 'transparent';
+          logoPreview.appendChild(imgElement);
+        } else {
+          const defaultElement = document.createElement('span');
+          defaultElement.className = 'logo-preview-text';
+          defaultElement.textContent = 'G';
+          logoPreview.style.backgroundColor = '#ffffff';
+          logoPreview.appendChild(defaultElement);
+        }
+      }
+
+      // ADDED: Select logo type in admin
+      function selectLogoType(type) {
+        state.logoSettings.type = type;
+        
+        const textLogoBtn = document.getElementById('textLogoBtn');
+        const imageLogoBtn = document.getElementById('imageLogoBtn');
+        const textLogoOptions = document.getElementById('textLogoOptions');
+        const imageLogoOptions = document.getElementById('imageLogoOptions');
+        
+        if (type === 'text') {
+          if (textLogoBtn) {
+            textLogoBtn.style.backgroundColor = 'var(--army-green)';
+            textLogoBtn.style.color = 'white';
+          }
+          if (imageLogoBtn) {
+            imageLogoBtn.style.backgroundColor = '';
+            imageLogoBtn.style.color = 'var(--army-green)';
+          }
+          
+          if (textLogoOptions) textLogoOptions.classList.remove('hidden');
+          if (imageLogoOptions) imageLogoOptions.classList.add('hidden');
+          
+          // Load current text logo settings
+          if (document.getElementById('logoText')) {
+            document.getElementById('logoText').value = state.logoSettings.text;
+          }
+          if (document.getElementById('logoColor')) {
+            document.getElementById('logoColor').value = state.logoSettings.textColor;
+          }
+          if (document.getElementById('logoBgColor')) {
+            document.getElementById('logoBgColor').value = state.logoSettings.backgroundColor;
+          }
+        } else {
+          if (imageLogoBtn) {
+            imageLogoBtn.style.backgroundColor = 'var(--army-green)';
+            imageLogoBtn.style.color = 'white';
+          }
+          if (textLogoBtn) {
+            textLogoBtn.style.backgroundColor = '';
+            textLogoBtn.style.color = 'var(--army-green)';
+          }
+          
+          if (imageLogoOptions) imageLogoOptions.classList.remove('hidden');
+          if (textLogoOptions) textLogoOptions.classList.add('hidden');
+          
+          // Load current image logo settings
+          if (document.getElementById('logoImageUrl')) {
+            document.getElementById('logoImageUrl').value = state.logoSettings.imageUrl || '';
+          }
+          
+          // Setup file upload listener
+          const logoUpload = document.getElementById('logoUpload');
+          if (logoUpload) {
+            logoUpload.addEventListener('change', handleLogoUpload);
+          }
+        }
+      }
+
+      // ADDED: Handle logo file upload
+      function handleLogoUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        // Update file name display
+        const fileNameElement = document.getElementById('logoFileName');
+        if (fileNameElement) {
+          fileNameElement.textContent = file.name;
+        }
+        
+        // Check file size (max 2MB)
+        if (file.size > 2 * 1024 * 1024) {
+          showNotification('File size too large. Maximum size is 2MB.', 'error');
+          return;
+        }
+        
+        // Check file type
+        if (!file.type.match('image.*')) {
+          showNotification('Please select an image file.', 'error');
+          return;
+        }
+        
+        // Create temporary URL for preview
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          state.logoSettings.imageUrl = e.target.result;
+          updateLogoPreview();
+          showNotification('Logo image ready to save!', 'success');
+        };
+        reader.readAsDataURL(file);
+      }
+
+      // ADDED: Update logo from admin
+      function updateLogo() {
+        if (state.logoSettings.type === 'text') {
+          // Get text logo settings
+          const text = document.getElementById('logoText')?.value?.trim() || 'G';
+          const textColor = document.getElementById('logoColor')?.value || '#4b5320';
+          const bgColor = document.getElementById('logoBgColor')?.value || '#ffffff';
+          
+          state.logoSettings.text = text;
+          state.logoSettings.textColor = textColor;
+          state.logoSettings.backgroundColor = bgColor;
+          state.logoSettings.imageUrl = ''; // Clear image URL if switching to text
+          
+        } else if (state.logoSettings.type === 'image') {
+          // Get image logo settings
+          const imageUrl = document.getElementById('logoImageUrl')?.value?.trim() || '';
+          
+          if (!imageUrl && !state.logoSettings.imageUrl) {
+            showNotification('Please provide a logo image URL or upload an image', 'error');
+            return;
+          }
+          
+          if (imageUrl) {
+            state.logoSettings.imageUrl = imageUrl;
+          }
+          // If URL is empty but we have uploaded image, keep the uploaded image
+        }
+        
+        // Save and update
+        saveLogoSettings();
+        updateLogoDisplay();
+        showNotification('Logo updated successfully!', 'success');
+      }
+
+      // Load categories
+      function loadCategories() {
+        const categoriesContainer = document.getElementById('categoriesContainer');
+        categoriesContainer.innerHTML = '';
+        
+        state.categories.forEach(category => {
+          const categoryCard = document.createElement('div');
+          categoryCard.className = 'category-card';
+          categoryCard.onclick = () => {
+            if (category.id === 4) {
+              showSection('fast-selling');
+            } else {
+              filterMenu(category.name.toLowerCase().replace(' & ', '-').split(' ')[0]);
+            }
+          };
+          
+          categoryCard.innerHTML = `
+            <div class="category-icon" style="background: linear-gradient(135deg, ${category.color} 0%, ${category.color}99 100%);">
+              <i class="${category.icon}"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2" style="color: var(--army-green);">${category.name}</h3>
+            <p class="text-gray-600 mb-4">${category.description}</p>
+            <span class="inline-block px-4 py-1 rounded-full text-sm font-medium" style="background-color: ${category.color}; color: white;">
+              ${category.timing}
+            </span>
+          `;
+          
+          categoriesContainer.appendChild(categoryCard);
+        });
+        
+        // Load category list for admin
+        loadCategoryList();
+        
+        // Load filter buttons
+        loadFilterButtons();
+      }
+
+      function loadFilterButtons() {
+        const filtersContainer = document.getElementById('menuFilters');
+        // Clear existing buttons except first
+        while (filtersContainer.children.length > 1) {
+          filtersContainer.removeChild(filtersContainer.lastChild);
+        }
+        
+        // Add category filter buttons
+        state.categories.forEach(category => {
+          if (category.id !== 4) { // Don't add Fast Sellers as filter
+            const categoryKey = category.name.toLowerCase().replace(' & ', '-').split(' ')[0];
+            const button = document.createElement('button');
+            button.className = 'px-6 py-2 rounded-full font-medium transition-all hover:bg-gray-100';
+            button.style.color = 'var(--army-green)';
+            button.style.border = '2px solid var(--army-green)';
+            button.textContent = category.name;
+            button.onclick = () => filterMenu(categoryKey);
+            filtersContainer.appendChild(button);
+          }
+        });
+        
+        // Add Protein Options button
+        const proteinButton = document.createElement('button');
+        proteinButton.className = 'px-6 py-2 rounded-full font-medium transition-all hover:bg-gray-100';
+        proteinButton.style.color = 'var(--army-green)';
+        proteinButton.style.border = '2px solid var(--army-green)';
+        proteinButton.textContent = 'Protein Options';
+        proteinButton.onclick = () => filterMenu('protein');
+        filtersContainer.appendChild(proteinButton);
+      }
+
+      // Load tags
+      function loadTags() {
+        const tagsContainer = document.getElementById('tagBanners');
+        tagsContainer.innerHTML = '';
+        
+        // Sort tags by order
+        const sortedTags = [...state.tags].sort((a, b) => a.order - b.order);
+        
+        sortedTags.forEach(tag => {
+          const tagElement = document.createElement('span');
+          tagElement.className = `tag-banner ${tag.color}`;
+          tagElement.innerHTML = `<i class="${tag.icon} mr-2"></i>${tag.text}`;
+          tagsContainer.appendChild(tagElement);
+        });
+        
+        // Load tag list for admin
+        loadTagList();
+      }
+
+      // Menu Functions
+      function loadMenuItems() {
+        const menuGrid = document.getElementById('menuGrid');
+        menuGrid.innerHTML = '';
+        
+        state.menuItems.forEach(item => {
+          const menuItem = document.createElement('div');
+          menuItem.className = 'menu-item-card';
+          menuItem.setAttribute('data-category', item.category);
+          
+          menuItem.innerHTML = `
+            <div class="relative h-48">
+              <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+              <span class="menu-item-badge" style="background-color: ${getBadgeColor(item.badge)}; color: white;">
+                ${item.badge}
+              </span>
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="text-lg font-bold" style="color: var(--army-green);">${item.name}</h3>
+                <span class="price-tag">₦${item.price.toLocaleString()}</span>
+              </div>
+              <p class="text-gray-600 text-sm mb-4">${item.description}</p>
+              <button onclick="addToCart(${item.id})" 
+                      class="w-full btn-primary py-2 text-sm">
+                <i class="fas fa-plus mr-2"></i>Add to Order
+              </button>
+            </div>
+          `;
+          
+          menuGrid.appendChild(menuItem);
+        });
+        
+        // Load price list for admin
+        loadPriceList();
+      }
+
+      function loadFastSellingItems() {
+        const fastSellingGrid = document.getElementById('fastSellingGrid');
+        fastSellingGrid.innerHTML = '';
+        
+        const fastSellingItems = state.menuItems.filter(item => item.category === 'fast-selling');
+        
+        fastSellingItems.forEach(item => {
+          const menuItem = document.createElement('div');
+          menuItem.className = 'menu-item-card';
+          
+          menuItem.innerHTML = `
+            <div class="relative h-48">
+              <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+              <span class="fast-selling-badge">🔥 Top Seller</span>
+              <span class="menu-item-badge" style="background-color: ${getBadgeColor(item.badge)}; color: white;">
+                ${item.badge}
+              </span>
+            </div>
+            <div class="p-6">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="text-lg font-bold" style="color: var(--army-green);">${item.name}</h3>
+                <span class="price-tag">₦${item.price.toLocaleString()}</span>
+              </div>
+              <p class="text-gray-600 text-sm mb-4">${item.description}</p>
+              <button onclick="addToCart(${item.id})" 
+                      class="w-full btn-primary py-2 text-sm">
+                <i class="fas fa-plus mr-2"></i>Add to Order
+              </button>
+            </div>
+          `;
+          
+          fastSellingGrid.appendChild(menuItem);
+        });
+      }
+
+      function getBadgeColor(badge) {
+        switch(badge) {
+          case 'Hot': return 'var(--hot-orange)';
+          case 'Fresh': return 'var(--fresh-green)';
+          case 'Spicy': return 'var(--spicy-red)';
+          case 'Homemade': return 'var(--warm-gold)';
+          case 'Juicy': return 'var(--army-green)';
+          case 'Crispy': return 'var(--army-green-light)';
+          case 'Creamy': return 'var(--army-green)';
+          case 'Simple': return '#6b7280';
+          default: return 'var(--army-green)';
+        }
+      }
+
+      function filterMenu(category) {
+        showSection('menu');
+        
+        const items = document.querySelectorAll('.menu-item-card');
+        const buttons = document.querySelectorAll('#menuFilters button');
+        
+        // Update active button
+        buttons.forEach(btn => {
+          const btnText = btn.textContent.trim().toLowerCase();
+          const categoryMap = {
+            'breakfast': 'breakfast',
+            'rice meals': 'rice',
+            'pasta & noodles': 'pasta',
+            'protein options': 'protein',
+            'all items': 'all'
+          };
+          
+          const categoryKey = categoryMap[btnText] || btnText.toLowerCase().split(' ')[0];
+          
+          if ((category === 'all' && btnText === 'all items') || 
+              (category !== 'all' && categoryKey === category)) {
+            btn.style.backgroundColor = 'var(--army-green)';
+            btn.style.color = 'white';
+            btn.style.border = 'none';
+          } else {
+            btn.style.backgroundColor = '';
+            btn.style.color = 'var(--army-green)';
+            btn.style.border = '2px solid var(--army-green)';
+          }
+        });
+        
+        // Filter items
+        items.forEach(item => {
+          if (category === 'all' || item.getAttribute('data-category') === category) {
+            item.style.display = 'block';
+            setTimeout(() => {
+              item.style.opacity = '1';
+              item.style.transform = 'translateY(0)';
+            }, 50);
+          } else {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+              item.style.display = 'none';
+            }, 300);
+          }
+        });
+      }
+
+      // Cart Functions
+      function addToCart(itemId) {
+        const item = state.menuItems.find(i => i.id === itemId);
+        if (!item) return;
+
+        const existingItem = state.cart.find(i => i.id === itemId);
+        
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          state.cart.push({
+            ...item,
+            quantity: 1
+          });
+        }
+
+        updateCart();
+        saveCartToStorage();
+        
+        // Show notification
+        showNotification(`${item.name} added to cart!`);
+      }
+
+      function updateCart() {
+        updateCartCount();
+        updateCartDisplay();
+      }
+
+      function updateCartCount() {
+        const totalItems = state.cart.reduce((sum, item) => sum + item.quantity, 0);
+        document.getElementById('cartCount').textContent = totalItems;
+        document.getElementById('cartCount').style.display = totalItems > 0 ? 'flex' : 'none';
+      }
+
+      function updateCartDisplay() {
+        const cartItems = document.getElementById('cartItems');
+        const orderItems = document.getElementById('orderItems');
+        
+        if (state.cart.length === 0) {
+          cartItems.innerHTML = `
+            <div class="text-center py-12 text-gray-500">
+              <i class="fas fa-shopping-bag text-4xl mb-4"></i>
+              <p class="font-medium">Your cart is empty</p>
+              <p class="text-sm mt-2">Add delicious items from our menu</p>
+            </div>
+          `;
+          
+          orderItems.innerHTML = `
+            <div class="text-center py-8 text-gray-500">
+              <i class="fas fa-shopping-bag text-4xl mb-4"></i>
+              <p>Your cart is empty</p>
+              <p class="text-sm">Add items from our menu</p>
+            </div>
+          `;
+          
+          document.getElementById('cartSubtotal').textContent = '₦0';
+          document.getElementById('cartTotal').textContent = '₦0';
+          document.getElementById('orderTotal').textContent = '₦0';
+          return;
+        }
+
+        let cartHTML = '';
+        let orderHTML = '';
+        let subtotal = 0;
+
+        state.cart.forEach(item => {
+          const itemTotal = item.price * item.quantity;
+          subtotal += itemTotal;
+
+          cartHTML += `
+            <div class="cart-item">
+              <div class="flex justify-between items-start">
+                <div class="flex-1">
+                  <h4 class="font-medium" style="color: var(--army-green);">${item.name}</h4>
+                  <p class="text-sm text-gray-600 mt-1">₦${item.price.toLocaleString()} each</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                  <div class="flex items-center border rounded-lg">
+                    <button onclick="updateQuantity(${item.id}, -1)" class="px-3 py-1 hover:bg-gray-100">
+                      <i class="fas fa-minus text-xs"></i>
+                    </button>
+                    <span class="px-3 py-1">${item.quantity}</span>
+                    <button onclick="updateQuantity(${item.id}, 1)" class="px-3 py-1 hover:bg-gray-100">
+                      <i class="fas fa-plus text-xs"></i>
+                    </button>
+                  </div>
+                  <span class="font-medium" style="color: var(--army-green);">₦${itemTotal.toLocaleString()}</span>
+                  <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700 ml-2">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+
+          orderHTML += `
+            <div class="flex justify-between items-center py-3 border-b border-gray-100">
+              <div>
+                <span class="font-medium">${item.name}</span>
+                <div class="text-sm text-gray-600">${item.quantity} × ₦${item.price.toLocaleString()}</div>
+              </div>
+              <span class="font-medium" style="color: var(--army-green);">₦${itemTotal.toLocaleString()}</span>
+            </div>
+          `;
+        });
+
+        const deliveryFee = 500;
+        const total = subtotal + deliveryFee;
+
+        cartItems.innerHTML = cartHTML;
+        orderItems.innerHTML = orderHTML;
+        document.getElementById('cartSubtotal').textContent = `₦${subtotal.toLocaleString()}`;
+        document.getElementById('cartTotal').textContent = `₦${total.toLocaleString()}`;
+        document.getElementById('orderTotal').textContent = `₦${total.toLocaleString()}`;
+      }
+
+      function updateQuantity(itemId, change) {
+        const item = state.cart.find(i => i.id === itemId);
+        if (!item) return;
+
+        item.quantity += change;
+        
+        if (item.quantity <= 0) {
+          state.cart = state.cart.filter(i => i.id !== itemId);
+        }
+
+        updateCart();
+        saveCartToStorage();
+      }
+
+      function removeFromCart(itemId) {
+        state.cart = state.cart.filter(i => i.id !== itemId);
+        updateCart();
+        saveCartToStorage();
+        showNotification('Item removed from cart');
+      }
+
+      function toggleCart() {
+        const sidebar = document.getElementById('cartSidebar');
+        const overlay = document.getElementById('cartOverlay');
+        
+        if (sidebar.classList.contains('open')) {
+          sidebar.classList.remove('open');
+          overlay.classList.add('hidden');
+          document.getElementById('whatsappCheckoutForm').classList.add('hidden');
+        } else {
+          sidebar.classList.add('open');
+          overlay.classList.remove('hidden');
+        }
+      }
+
+      function toggleWhatsAppCheckout() {
+        const form = document.getElementById('whatsappCheckoutForm');
+        if (state.cart.length === 0) {
+          showNotification('Please add items to your cart first');
+          return;
+        }
+        
+        if (form.classList.contains('hidden')) {
+          form.classList.remove('hidden');
+          loadLGASelects();
+        } else {
+          submitWhatsAppCheckout();
+        }
+      }
+
+      function submitWhatsAppCheckout() {
+        const name = document.getElementById('cartCustomerName').value;
+        const phone = document.getElementById('cartCustomerPhone').value;
+        const lga = document.getElementById('cartCustomerLGA').value;
+        const address = document.getElementById('cartDeliveryAddress').value;
+
+        if (!name || !phone || !lga || !address) {
+          showNotification('Please fill in all delivery details');
+          return;
+        }
+
+        let orderSummary = '';
+        let subtotal = 0;
+
+        state.cart.forEach(item => {
+          const itemTotal = item.price * item.quantity;
+          subtotal += itemTotal;
+          orderSummary += `• ${item.name} (${item.quantity} × ₦${item.price.toLocaleString()}) = ₦${itemTotal.toLocaleString()}\n`;
+        });
+
+        const total = subtotal + 500;
+        const message = `🍽️ *NEW ORDER - GRUBNMORE* 🍽️
+
+👤 *Customer Information*
+• Name: ${name}
+• Phone: ${phone}
+• LGA: ${lga}
+• Address: ${address}
+
+🛒 *Order Summary*
+${orderSummary}
+📦 Delivery Fee: ₦500
+💰 *Total Amount: ₦${total.toLocaleString()}*
+
+🚚 *Delivery Information*
+Please confirm order availability and estimated delivery time.`;
+
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${state.siteData.whatsappNumber}?text=${encodedMessage}`;
+
+        window.open(whatsappUrl, '_blank');
+        
+        state.cart = [];
+        updateCart();
+        saveCartToStorage();
+        toggleCart();
+        
+        showNotification('Order sent to WhatsApp!', 'success');
+      }
+
+      function continueShopping() {
+        toggleCart();
+        showSection('menu');
+      }
+
+      // Order Functions
+      function submitOrder() {
+        if (state.cart.length === 0) {
+          showNotification('Please add items to your cart first');
+          return;
+        }
+
+        const name = document.getElementById('customerName').value;
+        const phone = document.getElementById('customerPhone').value;
+        const email = document.getElementById('customerEmail').value;
+        const lga = document.getElementById('customerLGA').value;
+        const address = document.getElementById('deliveryAddress').value;
+        const time = document.getElementById('deliveryTime').value;
+        const instructions = document.getElementById('specialInstructions').value;
+
+        if (!name || !phone || !lga || !address) {
+          showNotification('Please fill in all required fields');
+          return;
+        }
+
+        let orderSummary = '';
+        let subtotal = 0;
+
+        state.cart.forEach(item => {
+          const itemTotal = item.price * item.quantity;
+          subtotal += itemTotal;
+          orderSummary += `• ${item.name} (${item.quantity} × ₦${item.price.toLocaleString()}) = ₦${itemTotal.toLocaleString()}\n`;
+        });
+
+        const total = subtotal + 500;
+        const message = `🍽️ *NEW ORDER - GRUBNMORE* 🍽️
+
+👤 *Customer Information*
+• Name: ${name}
+• Phone: ${phone}
+• Email: ${email || 'Not provided'}
+• LGA: ${lga}
+• Address: ${address}
+• Preferred Time: ${time}
+• Instructions: ${instructions || 'None'}
+
+🛒 *Order Summary*
+${orderSummary}
+📦 Delivery Fee: ₦500
+💰 *Total Amount: ₦${total.toLocaleString()}*
+
+🚚 *Delivery Information*
+Please confirm order availability and estimated delivery time.`;
+
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${state.siteData.whatsappNumber}?text=${encodedMessage}`;
+
+        window.open(whatsappUrl, '_blank');
+        
+        state.cart = [];
+        updateCart();
+        saveCartToStorage();
+        document.getElementById('orderForm').reset();
+        
+        showNotification('Order submitted! Opening WhatsApp...', 'success');
+      }
+
+      function openWhatsAppOrder() {
+        if (state.cart.length === 0) {
+          showSection('menu');
+          showNotification('Please select items from our menu first');
+          return;
+        }
+        proceedToCheckout();
+      }
+
+      function proceedToCheckout() {
+        showSection('order');
+        setTimeout(() => {
+          document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+
+      // Special Order Functions
+      function handleSpecialOrder() {
+        const form = document.getElementById('specialOrderForm');
+        const formData = new FormData(form);
+        
+        let message = `🌟 *SPECIAL ORDER REQUEST* 🌟\n\n`;
+        
+        for (let [key, value] of formData) {
+          if (value) {
+            message += `• ${key}: ${value}\n`;
+          }
+        }
+        
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${state.siteData.whatsappNumber}?text=${encodedMessage}`;
+        
+        window.open(whatsappUrl, '_blank');
+        form.reset();
+        showNotification('Special order request sent!', 'success');
+      }
+
+      // Blog Functions
+      function loadBlogPosts() {
+        const blogGrid = document.getElementById('blogGrid');
+        blogGrid.innerHTML = '';
+        
+        state.blogPosts.forEach(post => {
+          const blogCard = document.createElement('div');
+          blogCard.className = 'blog-card';
+          
+          blogCard.innerHTML = `
+            <div class="h-48 overflow-hidden">
+              <img src="${post.image}" alt="${post.title}" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
+            </div>
+            <div class="p-6">
+              <div class="flex items-center text-sm text-gray-500 mb-3">
+                <span class="px-2 py-1 rounded-full" style="background-color: var(--army-green); color: white;">${post.category}</span>
+                <span class="mx-2">•</span>
+                <span>${post.date}</span>
+              </div>
+              <h3 class="text-xl font-bold mb-3" style="color: var(--army-green);">${post.title}</h3>
+              <p class="text-gray-600 mb-4">${post.content}</p>
+              <button onclick="readBlogPost(${post.id})" class="text-sm font-medium" style="color: var(--army-green);">
+                Read More <i class="fas fa-arrow-right ml-1"></i>
+              </button>
+            </div>
+          `;
+          
+          blogGrid.appendChild(blogCard);
+        });
+        
+        // Load blog list for admin
+        loadBlogList();
+      }
+
+      function readBlogPost(postId) {
+        const post = state.blogPosts.find(p => p.id === postId);
+        if (post) {
+          alert(`Reading: ${post.title}\n\n${post.content}`);
+        }
+      }
+
+      // Slideshow Functions
+      function startSlideshow() {
+        setInterval(() => {
+          nextSlide();
+        }, 5000);
+      }
+
+      function goToSlide(index) {
+        state.slides.forEach((slide, i) => {
+          const slideElement = document.getElementById(slide.id);
+          const indicator = document.querySelectorAll('.slide-indicator')[i];
+          
+          if (i === index) {
+            slideElement.classList.remove('opacity-0');
+            slideElement.classList.add('opacity-100');
+            indicator.classList.remove('bg-white/50');
+            indicator.classList.add('bg-white');
+            state.currentSlide = index;
+          } else {
+            slideElement.classList.remove('opacity-100');
+            slideElement.classList.add('opacity-0');
+            indicator.classList.remove('bg-white');
+            indicator.classList.add('bg-white/50');
+          }
+        });
+      }
+
+      function nextSlide() {
+        const nextIndex = (state.currentSlide + 1) % state.slides.length;
+        goToSlide(nextIndex);
+      }
+
+      // Navigation Functions
+      function showSection(sectionId) {
+        const sections = ['home', 'menu', 'fast-selling', 'blog', 'special-order', 'order'];
+        sections.forEach(id => {
+          const section = document.getElementById(id);
+          if (section) {
+            section.style.display = 'none';
+          }
+        });
+
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.style.display = 'block';
+          
+          setTimeout(() => {
+            section.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+        }
+
+        history.replaceState(null, null, `#${sectionId}`);
+        
+        closeMobileMenu();
+      }
+
+      function closeMobileMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenu) {
+          mobileMenu.classList.remove('open');
+        }
+      }
+
+      // ADMIN FUNCTIONS
+      function showAdminLogin() {
+        document.getElementById('adminLoginModal').classList.remove('hidden');
+      }
+
+      function closeAdminLogin() {
+        document.getElementById('adminLoginModal').classList.add('hidden');
+      }
+
+      function handleAdminLogin() {
+        const username = document.getElementById('adminUsername').value;
+        const password = document.getElementById('adminPassword').value;
+        
+        if (username === 'GrubNLagosCloud1' && password === '440012A') {
+          closeAdminLogin();
+          showAdminPanel();
+          loadAdminData();
+        } else {
+          showNotification('Invalid credentials. Please try again.', 'error');
+        }
+      }
+
+      function showAdminPanel() {
+        document.getElementById('adminPanelModal').classList.remove('hidden');
+      }
+
+      function closeAdminPanel() {
+        document.getElementById('adminPanelModal').classList.add('hidden');
+      }
+
+      function loadAdminData() {
+        // Load site branding
+        document.getElementById('siteTitleInput').value = state.siteData.siteTitle;
+        document.getElementById('siteTagline').value = state.siteData.tagline;
+        document.getElementById('heroTitleInput').value = state.siteData.heroTitle;
+        document.getElementById('heroSubtitleInput').value = state.siteData.heroSubtitle;
+        document.getElementById('heroDescriptionInput').value = state.siteData.heroDescription;
+        
+        // Load section titles
+        document.getElementById('categoriesTitleInput').value = state.siteData.categoriesTitle;
+        document.getElementById('categoriesDescriptionInput').value = state.siteData.categoriesDescription;
+        document.getElementById('fastSellingTitleInput').value = state.siteData.fastSellingTitle;
+        document.getElementById('fastSellingDescriptionInput').value = state.siteData.fastSellingDescription;
+        
+        // Load contact & footer
+        document.getElementById('footerTitleInput').value = state.siteData.footerTitle;
+        document.getElementById('footerDescriptionInput').value = state.siteData.footerDescription;
+        document.getElementById('contactPhone').value = state.siteData.contactPhone;
+        document.getElementById('contactEmail').value = state.siteData.contactEmail;
+        document.getElementById('contactAddress').value = state.siteData.contactAddress;
+        document.getElementById('deliveryHoursInput').value = state.siteData.deliveryHours;
+        document.getElementById('copyrightText').value = state.siteData.copyright.replace(/&copy;/g, '©').replace(/&nbsp;/g, ' ');
+        
+        // Load images
+        document.getElementById('heroImage1').value = state.siteData.heroImages[0] || '';
+        document.getElementById('heroImage2').value = state.siteData.heroImages[1] || '';
+        document.getElementById('heroImage3').value = state.siteData.heroImages[2] || '';
+        
+        // Load logo settings
+        document.getElementById('logoText').value = state.logoSettings.text;
+        document.getElementById('logoColor').value = state.logoSettings.textColor;
+        document.getElementById('logoBgColor').value = state.logoSettings.backgroundColor;
+        document.getElementById('logoImageUrl').value = state.logoSettings.imageUrl || '';
+        
+        // Set initial logo type
+        selectLogoType(state.logoSettings.type);
+        updateLogoPreview();
+        
+        // Setup file upload listener
+        const logoUpload = document.getElementById('logoUpload');
+        if (logoUpload) {
+          logoUpload.addEventListener('change', handleLogoUpload);
+        }
+        
+        // Load lists
+        loadPriceList();
+        loadCategoryList();
+        loadTagList();
+        loadBlogList();
+      }
+
+      function loadPriceList() {
+        const priceList = document.getElementById('priceList');
+        priceList.innerHTML = '';
+        
+        state.menuItems.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'flex justify-between items-center p-2 border-b hover:bg-gray-50 cursor-pointer';
+          div.onclick = () => selectProductForEdit(item.id);
+          div.innerHTML = `
+            <span class="text-sm">${item.name}</span>
+            <div class="flex items-center space-x-2">
+              <span class="text-sm font-medium">₦${item.price.toLocaleString()}</span>
+              <button onclick="event.stopPropagation(); deleteProduct(${item.id})" class="text-red-500 hover:text-red-700">
+                <i class="fas fa-trash text-xs"></i>
+              </button>
+            </div>
+          `;
+          priceList.appendChild(div);
+        });
+      }
+
+      function selectProductForEdit(productId) {
+        const product = state.menuItems.find(p => p.id === productId);
+        if (!product) return;
+        
+        state.selectedProductId = productId;
+        
+        document.getElementById('productName').value = product.name;
+        document.getElementById('productPrice').value = product.price;
+        document.getElementById('productCategory').value = product.category;
+        document.getElementById('productBadge').value = product.badge;
+        document.getElementById('productDescription').value = product.description;
+        document.getElementById('productImage').value = product.image;
+        
+        showNotification(`Selected "${product.name}" for editing`);
+      }
+
+      function addProduct() {
+        const name = document.getElementById('productName').value;
+        const price = parseInt(document.getElementById('productPrice').value);
+        const category = document.getElementById('productCategory').value;
+        const badge = document.getElementById('productBadge').value;
+        const description = document.getElementById('productDescription').value;
+        const image = document.getElementById('productImage').value;
+        
+        if (!name || !price || !description) {
+          showNotification('Please fill in all required fields', 'error');
+          return;
+        }
+        
+        const newProduct = {
+          id: state.menuItems.length > 0 ? Math.max(...state.menuItems.map(p => p.id)) + 1 : 1,
+          name: name,
+          price: price,
+          category: category,
+          badge: badge,
+          description: description,
+          image: image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+        };
+        
+        state.menuItems.push(newProduct);
+        saveSiteData();
+        loadMenuItems();
+        loadFastSellingItems();
+        loadPriceList();
+        
+        document.getElementById('productName').value = '';
+        document.getElementById('productPrice').value = '';
+        document.getElementById('productDescription').value = '';
+        document.getElementById('productImage').value = '';
+        
+        showNotification('Product added successfully!', 'success');
+      }
+
+      function updateProduct() {
+        if (!state.selectedProductId) {
+          showNotification('Please select a product to edit first', 'error');
+          return;
+        }
+        
+        const product = state.menuItems.find(p => p.id === state.selectedProductId);
+        if (!product) return;
+        
+        product.name = document.getElementById('productName').value;
+        product.price = parseInt(document.getElementById('productPrice').value);
+        product.category = document.getElementById('productCategory').value;
+        product.badge = document.getElementById('productBadge').value;
+        product.description = document.getElementById('productDescription').value;
+        product.image = document.getElementById('productImage').value;
+        
+        saveSiteData();
+        loadMenuItems();
+        loadFastSellingItems();
+        loadPriceList();
+        
+        showNotification('Product updated successfully!', 'success');
+      }
+
+      function deleteProduct(productId) {
+        if (confirm('Are you sure you want to delete this product?')) {
+          state.menuItems = state.menuItems.filter(i => i.id !== productId);
+          saveSiteData();
+          loadMenuItems();
+          loadFastSellingItems();
+          loadPriceList();
+          showNotification('Product deleted!', 'success');
+        }
+      }
+
+      function searchProduct() {
+        const searchTerm = document.getElementById('searchProduct').value.toLowerCase();
+        const filtered = state.menuItems.filter(item => 
+          item.name.toLowerCase().includes(searchTerm) || 
+          item.description.toLowerCase().includes(searchTerm)
+        );
+        
+        const priceList = document.getElementById('priceList');
+        priceList.innerHTML = '';
+        
+        filtered.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'flex justify-between items-center p-2 border-b hover:bg-gray-50 cursor-pointer';
+          div.onclick = () => selectProductForEdit(item.id);
+          div.innerHTML = `
+            <span class="text-sm">${item.name}</span>
+            <div class="flex items-center space-x-2">
+              <span class="text-sm font-medium">₦${item.price.toLocaleString()}</span>
+              <button onclick="event.stopPropagation(); deleteProduct(${item.id})" class="text-red-500 hover:text-red-700">
+                <i class="fas fa-trash text-xs"></i>
+              </button>
+            </div>
+          `;
+          priceList.appendChild(div);
+        });
+      }
+
+      function loadCategoryList() {
+        const categoryList = document.getElementById('categoryList');
+        categoryList.innerHTML = '';
+        
+        state.categories.forEach(category => {
+          const div = document.createElement('div');
+          div.className = 'flex justify-between items-center p-2 border-b hover:bg-gray-50 cursor-pointer';
+          div.onclick = () => selectCategoryForEdit(category.id);
+          div.innerHTML = `
+            <span class="text-sm">${category.name}</span>
+            <button onclick="event.stopPropagation(); deleteCategory(${category.id})" class="text-red-500 hover:text-red-700">
+              <i class="fas fa-trash text-xs"></i>
+            </button>
+          `;
+          categoryList.appendChild(div);
+        });
+      }
+
+      function selectCategoryForEdit(categoryId) {
+        const category = state.categories.find(c => c.id === categoryId);
+        if (!category) return;
+        
+        state.selectedCategoryId = categoryId;
+        
+        document.getElementById('categoryName').value = category.name;
+        document.getElementById('categoryIcon').value = category.icon;
+        document.getElementById('categoryDescription').value = category.description;
+        document.getElementById('categoryTiming').value = category.timing;
+        document.getElementById('categoryColor').value = category.color;
+        
+        showNotification(`Selected "${category.name}" for editing`);
+      }
+
+      function addCategory() {
+        const name = document.getElementById('categoryName').value;
+        const icon = document.getElementById('categoryIcon').value;
+        const description = document.getElementById('categoryDescription').value;
+        const timing = document.getElementById('categoryTiming').value;
+        const color = document.getElementById('categoryColor').value;
+        
+        if (!name || !icon || !description || !timing) {
+          showNotification('Please fill in all required fields', 'error');
+          return;
+        }
+        
+        const newCategory = {
+          id: state.categories.length > 0 ? Math.max(...state.categories.map(c => c.id)) + 1 : 1,
+          name: name,
+          icon: icon,
+          description: description,
+          timing: timing,
+          color: color
+        };
+        
+        state.categories.push(newCategory);
+        saveSiteData();
+        loadCategories();
+        loadCategoryList();
+        
+        document.getElementById('categoryName').value = '';
+        document.getElementById('categoryIcon').value = '';
+        document.getElementById('categoryDescription').value = '';
+        document.getElementById('categoryTiming').value = '';
+        
+        showNotification('Category added successfully!', 'success');
+      }
+
+      function updateCategory() {
+        if (!state.selectedCategoryId) {
+          showNotification('Please select a category to edit first', 'error');
+          return;
+        }
+        
+        const category = state.categories.find(c => c.id === state.selectedCategoryId);
+        if (!category) return;
+        
+        category.name = document.getElementById('categoryName').value;
+        category.icon = document.getElementById('categoryIcon').value;
+        category.description = document.getElementById('categoryDescription').value;
+        category.timing = document.getElementById('categoryTiming').value;
+        category.color = document.getElementById('categoryColor').value;
+        
+        saveSiteData();
+        loadCategories();
+        loadCategoryList();
+        
+        showNotification('Category updated successfully!', 'success');
+      }
+
+      function deleteCategory(categoryId) {
+        if (categoryId <= 4) {
+          showNotification('Cannot delete default categories', 'error');
+          return;
+        }
+        
+        if (confirm('Are you sure you want to delete this category?')) {
+          state.categories = state.categories.filter(c => c.id !== categoryId);
+          saveSiteData();
+          loadCategories();
+          loadCategoryList();
+          showNotification('Category deleted!', 'success');
+        }
+      }
+
+      function loadTagList() {
+        const tagList = document.getElementById('tagList');
+        tagList.innerHTML = '';
+        
+        const sortedTags = [...state.tags].sort((a, b) => a.order - b.order);
+        
+        sortedTags.forEach(tag => {
+          const div = document.createElement('div');
+          div.className = 'flex justify-between items-center p-2 border-b hover:bg-gray-50 cursor-pointer';
+          div.onclick = () => selectTagForEdit(tag.id);
+          div.innerHTML = `
+            <span class="text-sm">${tag.text}</span>
+            <button onclick="event.stopPropagation(); deleteTag(${tag.id})" class="text-red-500 hover:text-red-700">
+              <i class="fas fa-trash text-xs"></i>
+            </button>
+          `;
+          tagList.appendChild(div);
+        });
+      }
+
+      function selectTagForEdit(tagId) {
+        const tag = state.tags.find(t => t.id === tagId);
+        if (!tag) return;
+        
+        state.selectedTagId = tagId;
+        
+        document.getElementById('tagText').value = tag.text;
+        document.getElementById('tagIcon').value = tag.icon;
+        document.getElementById('tagColor').value = tag.color;
+        document.getElementById('tagOrder').value = tag.order;
+        
+        showNotification(`Selected "${tag.text}" for editing`);
+      }
+
+      function addTag() {
+        const text = document.getElementById('tagText').value;
+        const icon = document.getElementById('tagIcon').value;
+        const color = document.getElementById('tagColor').value;
+        const order = parseInt(document.getElementById('tagOrder').value);
+        
+        if (!text || !icon || !order) {
+          showNotification('Please fill in all required fields', 'error');
+          return;
+        }
+        
+        const newTag = {
+          id: state.tags.length > 0 ? Math.max(...state.tags.map(t => t.id)) + 1 : 1,
+          text: text,
+          icon: icon,
+          color: color,
+          order: order
+        };
+        
+        state.tags.push(newTag);
+        saveSiteData();
+        loadTags();
+        loadTagList();
+        
+        document.getElementById('tagText').value = '';
+        document.getElementById('tagIcon').value = '';
+        document.getElementById('tagOrder').value = '';
+        
+        showNotification('Tag added successfully!', 'success');
+      }
+
+      function updateTag() {
+        if (!state.selectedTagId) {
+          showNotification('Please select a tag to edit first', 'error');
+          return;
+        }
+        
+        const tag = state.tags.find(t => t.id === state.selectedTagId);
+        if (!tag) return;
+        
+        tag.text = document.getElementById('tagText').value;
+        tag.icon = document.getElementById('tagIcon').value;
+        tag.color = document.getElementById('tagColor').value;
+        tag.order = parseInt(document.getElementById('tagOrder').value);
+        
+        saveSiteData();
+        loadTags();
+        loadTagList();
+        
+        showNotification('Tag updated successfully!', 'success');
+      }
+
+      function deleteTag(tagId) {
+        if (tagId <= 4) {
+          showNotification('Cannot delete default tags', 'error');
+          return;
+        }
+        
+        if (confirm('Are you sure you want to delete this tag?')) {
+          state.tags = state.tags.filter(t => t.id !== tagId);
+          saveSiteData();
+          loadTags();
+          loadTagList();
+          showNotification('Tag deleted!', 'success');
+        }
+      }
+
+      function updateBranding() {
+        state.siteData.siteTitle = document.getElementById('siteTitleInput').value;
+        state.siteData.tagline = document.getElementById('siteTagline').value;
+        state.siteData.heroTitle = document.getElementById('heroTitleInput').value;
+        state.siteData.heroSubtitle = document.getElementById('heroSubtitleInput').value;
+        state.siteData.heroDescription = document.getElementById('heroDescriptionInput').value;
+        
+        saveSiteData();
+        loadSiteContent();
+        
+        showNotification('Branding updated successfully!', 'success');
+      }
+
+      function updateSectionTitles() {
+        state.siteData.categoriesTitle = document.getElementById('categoriesTitleInput').value;
+        state.siteData.categoriesDescription = document.getElementById('categoriesDescriptionInput').value;
+        state.siteData.fastSellingTitle = document.getElementById('fastSellingTitleInput').value;
+        state.siteData.fastSellingDescription = document.getElementById('fastSellingDescriptionInput').value;
+        
+        saveSiteData();
+        loadSiteContent();
+        
+        showNotification('Section titles updated successfully!', 'success');
+      }
+
+      function updateContactFooter() {
+        state.siteData.footerTitle = document.getElementById('footerTitleInput').value;
+        state.siteData.footerDescription = document.getElementById('footerDescriptionInput').value;
+        state.siteData.contactPhone = document.getElementById('contactPhone').value;
+        state.siteData.contactEmail = document.getElementById('contactEmail').value;
+        state.siteData.contactAddress = document.getElementById('contactAddress').value;
+        state.siteData.deliveryHours = document.getElementById('deliveryHoursInput').value;
+        state.siteData.copyright = document.getElementById('copyrightText').value;
+        
+        saveSiteData();
+        loadSiteContent();
+        
+        showNotification('Contact & footer updated successfully!', 'success');
+      }
+
+      function updateImages() {
+        state.siteData.heroImages = [
+          document.getElementById('heroImage1').value,
+          document.getElementById('heroImage2').value,
+          document.getElementById('heroImage3').value
+        ];
+        
+        saveSiteData();
+        loadSiteContent();
+        
+        showNotification('Images updated successfully!', 'success');
+      }
+
+      function loadBlogList() {
+        const blogList = document.getElementById('blogList');
+        blogList.innerHTML = '';
+        
+        state.blogPosts.forEach(blog => {
+          const div = document.createElement('div');
+          div.className = 'flex justify-between items-center p-2 border-b hover:bg-gray-50 cursor-pointer';
+          div.onclick = () => selectBlogForEdit(blog.id);
+          div.innerHTML = `
+            <span class="text-sm">${blog.title}</span>
+            <button onclick="event.stopPropagation(); deleteBlogPost(${blog.id})" class="text-red-500 hover:text-red-700">
+              <i class="fas fa-trash text-xs"></i>
+            </button>
+          `;
+          blogList.appendChild(div);
+        });
+      }
+
+      function selectBlogForEdit(blogId) {
+        const blog = state.blogPosts.find(b => b.id === blogId);
+        if (!blog) return;
+        
+        state.selectedBlogId = blogId;
+        
+        document.getElementById('blogTitleInput').value = blog.title;
+        document.getElementById('blogContent').value = blog.content;
+        document.getElementById('blogImage').value = blog.image;
+        document.getElementById('blogCategory').value = blog.category;
+        document.getElementById('blogDate').value = blog.date;
+        
+        showNotification(`Selected "${blog.title}" for editing`);
+      }
+
+      function addBlogPost() {
+        const title = document.getElementById('blogTitleInput').value;
+        const content = document.getElementById('blogContent').value;
+        const image = document.getElementById('blogImage').value;
+        const category = document.getElementById('blogCategory').value;
+        const date = document.getElementById('blogDate').value;
+        
+        if (!title || !content) {
+          showNotification('Please fill in title and content', 'error');
+          return;
+        }
+        
+        const newPost = {
+          id: state.blogPosts.length > 0 ? Math.max(...state.blogPosts.map(b => b.id)) + 1 : 1,
+          title: title,
+          content: content,
+          image: image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+          date: date || new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+          category: category || 'Update'
+        };
+        
+        state.blogPosts.push(newPost);
+        saveSiteData();
+        loadBlogPosts();
+        loadBlogList();
+        
+        document.getElementById('blogTitleInput').value = '';
+        document.getElementById('blogContent').value = '';
+        document.getElementById('blogImage').value = '';
+        document.getElementById('blogCategory').value = '';
+        document.getElementById('blogDate').value = '';
+        
+        showNotification('Blog post added successfully!', 'success');
+      }
+
+      function updateBlogPost() {
+        if (!state.selectedBlogId) {
+          showNotification('Please select a blog post to edit first', 'error');
+          return;
+        }
+        
+        const blog = state.blogPosts.find(b => b.id === state.selectedBlogId);
+        if (!blog) return;
+        
+        blog.title = document.getElementById('blogTitleInput').value;
+        blog.content = document.getElementById('blogContent').value;
+        blog.image = document.getElementById('blogImage').value;
+        blog.category = document.getElementById('blogCategory').value;
+        blog.date = document.getElementById('blogDate').value;
+        
+        saveSiteData();
+        loadBlogPosts();
+        loadBlogList();
+        
+        showNotification('Blog post updated successfully!', 'success');
+      }
+
+      function deleteBlogPost(blogId) {
+        if (blogId <= 3) {
+          showNotification('Cannot delete default blog posts', 'error');
+          return;
+        }
+        
+        if (confirm('Are you sure you want to delete this blog post?')) {
+          state.blogPosts = state.blogPosts.filter(b => b.id !== blogId);
+          saveSiteData();
+          loadBlogPosts();
+          loadBlogList();
+          showNotification('Blog post deleted!', 'success');
+        }
+      }
+
+      function exportSiteData() {
+        const data = {
+          siteData: state.siteData,
+          categories: state.categories,
+          tags: state.tags,
+          menuItems: state.menuItems,
+          blogPosts: state.blogPosts,
+          logoSettings: state.logoSettings // ADDED
+        };
+        
+        const dataStr = JSON.stringify(data, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        
+        const exportFileDefaultName = 'grubnmore-site-data.json';
+        
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+        
+        showNotification('Site data exported successfully!', 'success');
+      }
+
+      function importSiteData() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json';
+        
+        input.onchange = e => {
+          const file = e.target.files[0];
+          const reader = new FileReader();
+          
+          reader.onload = event => {
+            try {
+              const data = JSON.parse(event.target.result);
+              
+              if (data.siteData) state.siteData = data.siteData;
+              if (data.categories) state.categories = data.categories;
+              if (data.tags) state.tags = data.tags;
+              if (data.menuItems) state.menuItems = data.menuItems;
+              if (data.blogPosts) state.blogPosts = data.blogPosts;
+              // ADDED: Import logo settings
+              if (data.logoSettings) {
+                state.logoSettings = data.logoSettings;
+                saveLogoSettings();
+                updateLogoDisplay();
+              }
+              
+              saveSiteData();
+              loadSiteContent();
+              closeAdminPanel();
+              showAdminPanel();
+              loadAdminData();
+              
+              showNotification('Site data imported successfully!', 'success');
+            } catch (error) {
+              showNotification('Error importing data. Please check the file format.', 'error');
+            }
+          };
+          
+          reader.readAsText(file);
+        };
+        
+        input.click();
+      }
+
+      function resetToDefaults() {
+        if (confirm('Are you sure you want to reset all site data to defaults? This cannot be undone.')) {
+          // Reset to original state
+          state.categories = state.categories.filter(c => c.id <= 4);
+          state.tags = state.tags.filter(t => t.id <= 4);
+          state.menuItems = state.menuItems.filter(item => item.id <= 25);
+          state.blogPosts = state.blogPosts.filter(post => post.id <= 3);
+          state.siteData = {
+            siteTitle: "GrubNmore",
+            tagline: "Lagos Cloud Kitchen",
+            heroTitle: "Lagos' Favorite Cloud Kitchen",
+            heroSubtitle: "Cloud Kitchen",
+            heroDescription: "Experience the best of Lagos street food, delivered hot and fresh to your doorstep. From authentic local dishes to international favorites, we bring Lagos to you.",
+            categoriesTitle: "Our Menu Categories",
+            categoriesDescription: "Explore our diverse menu crafted to satisfy every craving",
+            fastSellingTitle: "Lagos' Favorites",
+            fastSellingDescription: "Our most popular items that Lagos can't get enough of",
+            menuTitle: "Our Complete Menu",
+            menuDescription: "Freshly prepared daily with love and attention to detail",
+            blogTitle: "GrubNmore Food Blog",
+            blogDescription: "Tips, recipes, and food stories from Lagos' favorite cloud kitchen",
+            specialOrderTitle: "Special Orders",
+            specialOrderDescription: "Have a special request? Custom orders? Bulk orders for events? We've got you covered!",
+            specialOrderNote: "Our team will contact you within 2 hours to discuss your special order and provide a quote.",
+            orderTitle: "Place Your Order",
+            orderDescription: "Complete your order and we'll deliver it fresh to your doorstep",
+            orderNote: "Note: After submitting, you'll be redirected to WhatsApp to complete your order. Please keep your phone nearby for confirmation.",
+            footerTitle: "GrubNmore",
+            footerDescription: "Lagos' Premier Cloud Kitchen - Bringing authentic flavors to your doorstep.",
+            contactPhone: "+234 812 345 6789\n+234 812 345 6789",
+            contactEmail: "orders@grubnmore.com",
+            contactAddress: "Lagos, Nigeria",
+            deliveryHours: "Breakfast: 6AM - 11AM\nLunch: 11AM - 3PM\nDinner: 5PM - 9PM\nWeekends: 8AM - 10PM",
+            copyright: "&copy; 2024 GrubNmore Lagos Cloud Kitchen. All rights reserved.",
+            heroImages: [
+              "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+              "https://images.unsplash.com/photo-1563379091339-03246963d9d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+              "https://images.unsplash.com/photo-1551183053-bf91a1d81141?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+            ],
+            whatsappNumber: "2348123456789"
+          };
+          
+          // ADDED: Reset logo settings
+          state.logoSettings = {
+            type: 'text',
+            text: 'G',
+            textColor: '#4b5320',
+            backgroundColor: '#ffffff',
+            imageUrl: ''
+          };
+          
+          saveSiteData();
+          saveLogoSettings();
+          loadSiteContent();
+          closeAdminPanel();
+          showAdminPanel();
+          loadAdminData();
+          
+          showNotification('Site reset to defaults!', 'success');
+        }
+      }
+
+      // Storage Functions
+      function saveCartToStorage() {
+        localStorage.setItem('grubnmore_cart', JSON.stringify(state.cart));
+      }
+
+      function loadCartFromStorage() {
+        const savedCart = localStorage.getItem('grubnmore_cart');
+        if (savedCart) {
+          state.cart = JSON.parse(savedCart);
+          updateCart();
+        }
+      }
+
+      // Utility Functions
+      function showNotification(message, type = 'info') {
+        const existingNotification = document.querySelector('.notification');
+        if (existingNotification) {
+          existingNotification.remove();
+        }
+
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.style.backgroundColor = type === 'success' ? '#10b981' : type === 'error' ? '#dc2626' : 'var(--army-green)';
+        notification.style.color = 'white';
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.style.transform = 'translateY(0)';
+        }, 10);
+
+        setTimeout(() => {
+          notification.style.transform = 'translateY(-100px)';
+          setTimeout(() => {
+            notification.remove();
+          }, 300);
+        }, 3000);
+      }
+    </script>
+  </body>
+</html>
